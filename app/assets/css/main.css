@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body {
+  background-color: #11150f;
+  font-family: "Poppins", sans-serif!important;
+}
+
+/* CSS variables */
+:root {
+  --thm-green: #25c866;
+  --thm-dark: #222223;
+  --thm-dark-mid: #2E2D2D;
+  --thm-dark-focus: #393737;
+  --thm-purple: #6f42c1;
+  --thm-orange: #fd7e14;
+  --thm-teal: #198754;
+  --thm-cyan: #0dcaf0;
+  --thm-primary: #0d6efd;
+  --thm-indigo: #6610f2;
+  /* swal */
+  --swal2-width: 28em!important;
+}
+
+/* FORMS */
+.my-forms .form-group {
+  margin-bottom: 1.5em;
+}
+.my-forms label {
+  margin-bottom: 5px;
+  display: inline-block;
+  font-size: 14px;
+  opacity: 0.8;
+}
+.my-forms .form-control {
+  background-color: var(--thm-dark-mid)!important;
+  border-color: var(--thm-dark-focus)!important;
+  color: #ccc!important;
+}
+.my-forms .input-group-text {
+  background-color: var(--thm-dark-focus);
+  border-color: var(--thm-dark-focus);
+  color: #fff;
+  transition: all .3s;
+}
+.my-forms .form-group:focus-within .input-group-text {
+  border-color: var(--thm-green);
+  color: var(--thm-green);
+}
+
+
+
+/* HELPERS */
+.text-green { color: var(--thm-green); }
+.text-teal { color: var(--thm-teal); }
+.text-mid { color: #ccc!important; }
+.bg-dark { background-color: var(--thm-dark)!important; }
+.bg-purple { background-color: var(--thm-purple)!important; }
+.bg-teal { background-color: var(--thm-teal)!important; }
+.bg-green { background-color: var(--thm-green)!important; }
+.bg-cyan { background-color: var(--thm-cyan)!important; }
+.bg-dark-mid { background-color: var(--thm-dark-mid)!important; }
+.bg-dark-focus { background-color: var(--thm-dark-focus)!important; }
+.round-30 { border-radius: 30px; }
+.round-15 { border-radius: 15px; }
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--thm-green)!important;
+}
+.btn:focus { box-shadow: none!important; }
+/* breadcrumb */
+.breadcrumb-item a {
+  color: #aaa;
+}
+
+/* SWAL */
+.swal2-confirm-button {
+  background-color: var(--thm-green)!important;
+  border-color: var(--thm-green)!important;
+  color: #fff!important;
+  padding: 7.5px 25px;
+}
+
+/* Modals */
+.modal-content {
+  background-color: var(--thm-dark)!important;
+  border-radius: 15px;
+  color: #ccc;
+}
+.modal-header, .modal-footer { border-color: var(--thm-dark-focus); }
