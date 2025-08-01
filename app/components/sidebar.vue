@@ -35,15 +35,15 @@ async function Logout() {
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/history" class="nav-link text-light">
-            <i class="bi bi-clock-history"></i>
-            <span>History</span>
-          </router-link>
-        </li>
-        <li class="nav-item">
           <router-link to="/wallets" class="nav-link text-light">
             <i class="bi bi-wallet"></i>
             <span>Wallets</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/history" class="nav-link text-light">
+            <i class="bi bi-clock-history"></i>
+            <span>History</span>
           </router-link>
         </li>
         <li class="nav-item">
@@ -53,7 +53,7 @@ async function Logout() {
           </a>
         </li>
         <li class="nav-item">
-          <button type="button" class="btn nav-link text-light" @click="Logout">
+          <button type="button" class="btn w-100 nav-link text-light text-start" @click="Logout">
             <i class="spinner-border spinner-border-sm me-3" v-if="loadReq"></i>
             <i class="bi bi-box-arrow-right" v-else></i>
             <span>Logout</span>

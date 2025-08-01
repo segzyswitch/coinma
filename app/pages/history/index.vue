@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'History - Coinma',
+  title: 'Transactions History - Coinma',
 });
 definePageMeta({
   layout: 'dashboard',

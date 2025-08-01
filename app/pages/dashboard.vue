@@ -68,8 +68,6 @@ definePageMeta({
     </section>
 
     <AllAssets />
-
-    <Transactions />
   </div>
 </template>
 

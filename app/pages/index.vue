@@ -33,7 +33,15 @@ async function Login() {
   const FD = formdata.value;
   try {
     const response = await Request.Login(FD);
-    console.log(response.data);
+    // console.log(response.data);
+    if (response.data.status != 'success') {
+      $swal.fire({
+        title: 'Error!',
+        icon: 'warning',
+        text: response?.data?.message ?? 'Error occurred, try again',
+      });
+      return false;
+    }
     // set login session
     useCookie('auth_token').value = response.data.token;
     const userData = response.data.user;
@@ -53,7 +61,7 @@ async function Login() {
     $swal.fire({
       title: 'Error!',
       icon: 'warning',
-      text: err?.response?.data?.error ?? 'Error occurred, try again',
+      text: err?.response?.data?.message ?? 'Error occurred, try again',
     });
   }
 }

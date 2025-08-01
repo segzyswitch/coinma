@@ -1,17 +1,65 @@
+<script setup lang="ts">
+// Define props
+const props = defineProps({
+  showall: {
+    type: Boolean,
+    required: false,
+    default: false,
+  }
+});
+// Import API
+import Request from '~/services/api';
+// SweetAlert
+const { $swal } = useNuxtApp();
+
+const allHistory:Ref<Array<any>> = ref([]);
+const loadReq = ref(true);
+
+async function getHistory() {
+  loadReq.value = true;
+  try {
+    const response = await Request.allHistory();
+    // console.log(response.data);
+    allHistory.value = response.data.data;    
+    loadReq.value = false;
+  } catch (err:any) {
+    console.log(err);
+    loadReq.value = false;
+    $swal.fire({
+      title: 'Error!',
+      icon: 'warning',
+      text: err?.response?.data?.message ?? 'Error occurred, try again',
+    });
+  }
+}
+
+onMounted(() => {
+  getHistory();
+});
+</script>
+
 <template>
   <section class="p-3 bg-dark round-15 mb-3">
     <h5 class="text-light mb-3">Recent Transactions</h5>
 
-    <div class="w-100 asset-item p-2 d-flex gap-2 rounded-3" v-for="i in 5" :key="i">
-      <img :src="`/img/assets/${i}.jpg`" width="40" alt="" class="my-auto" />
-      <div class="my-auto">
-        <p class="m-0">Bitcoin</p>
-        <small><span class="text-danger">-</span>$2,400.00</small>
-      </div>
-      <div class="ms-auto my-auto text-end text-muted">
-        <p class="m-0"><span class="text-success">+</span>0.{{1028 * i}} BTC</p>
-        <small>11:25 AM</small>
-      </div>
+    <p class="text-center py-5 text-mid" v-if="loadReq">
+      <i class="spinner-border"></i>
+    </p>
+    <div class="w-100" v-else>
+      <router-link :to="`/history/${history.trx}`" class="btn w-100 asset-item rounded-3 mb-2" v-for="(history, idx) in allHistory" :key="idx">
+        <div class="d-flex w-100 gap-2" v-if="history.type=='credit'">
+          <!-- <img :src="`/img/assets/${i}.jpg`" width="40" alt="" class="my-auto" /> -->
+          <span class="trx-icon light-success btn rounded-circle"><i class="bi bi-arrow-down h4 m-auto"></i></span>
+          <div class="my-auto">
+            <p class="mb-1 text-mid text-capitalize">Transfer</p>
+            <small class="text-teal">From {{ Request.shortenAddress(history.send_from) }}</small>
+          </div>
+          <div class="ms-auto my-auto text-end">
+            <p class="mb-1 small"><span class="text-success">+</span>{{ history.units }}</p>
+            <p class="text-success m-0">{{ Request.formatToCurrency(history.amount) }}</p>
+          </div>
+        </div>
+      </router-link>
     </div>
   </section>
 </template>
@@ -19,10 +67,29 @@
 <style scoped>
 /* Asets */
 .asset-item {
-  color: #aaa;
+  color: #ccc;
+  text-align: left;
 }
 .asset-item:hover {
   background-color: var(--thm-dark-mid);
-  color: #ccc;
+}
+
+.asset-item .trx-icon {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  display: flex;
+}
+.light-primary {
+  background-color: #b7dcff;
+  /* color: #0d6efd; */
+}
+.light-success {
+  background-color: #aeffca;
+  /* color: #198754; */
+}
+.light-danger {
+  background-color: #fcaeae;
+  /* color: #dc3545; */
 }
 </style>

@@ -12,6 +12,8 @@ definePageMeta({
   <div>
     <DashHeader />
 
+    <AllAssets :showall="true" :myAssets="true" />
+
     <Transactions />
   </div>
 </template>

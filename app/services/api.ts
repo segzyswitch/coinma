@@ -1,17 +1,51 @@
 import axios from 'axios';
-const apiUrl = process.env.API_URL || 'http://localhost/coinma/api';
+const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
 // const { $axios } = useNuxtApp();
 const $axios = axios.create({
   // baseURL: config.public.apiUrl.replace(/\/$/, ''), // clean trailing slash
 });
 
 class Request {
+  constructor() {
+    $axios.interceptors.response.use(
+      response => response,
+      (error) => {
+        if (error.response?.status === 401) {
+          Request.Logout();
+          useCookie('auth_token').value = '';
+          window.location.href = '/login';
+        }
+        return Promise.reject(error)
+      }
+    );
+  }
+
   static getCSC() {
     // return axios.get('https://api.countrystatecity.in/v1/countries', {
     //   headers: {
     //     'X-CSCAPI-KEY': 'RFA5RDR1bEN3YWMyNUpzZVdmMjA5YjhBa1Znajg1YkdoNk1jRmZFMA=='
     //   }
     // });
+  }
+  // format to money with decimal
+  static formatToCurrency(value: number, currency: string = 'USD') {
+    if (!value) return '$0.00';
+    const formatted = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency || 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
+    return formatted;
+  }
+  // Shorten wallet addr
+  static shortenAddress(address: string, startLength = 4, endLength = 4): string {
+    // if (!address.startsWith("0x") || address.length <= startLength + endLength + 2) {
+    //   return address;
+    // }
+    const start = address.slice(4, 2 + startLength);
+    const end = address.slice(-endLength);
+    return `0x${start}....${end}`;
   }
 
   // User
@@ -24,7 +58,7 @@ class Request {
   }
   static Logout() {
     const ACCESS_TOKEN = useCookie('auth_token').value;
-    return $axios.post('/logout', {
+    return $axios.post(`${apiUrl}/logout`, {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
@@ -32,12 +66,55 @@ class Request {
   }
   static userDetails() {
     const ACCESS_TOKEN = useCookie('auth_token').value;
-    return $axios.get('/user', {
+    return $axios.get(`${apiUrl}/user`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+
+  // Get assets
+  static allAssets() {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/assets`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  static assetBySlug(slug: any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/assets`, {
+      params: {
+        slug: slug,
+      },
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  
+
+  // Get assets
+  static allHistory() {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/history`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  static historyByHash(hash: any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/history`, {
+      params: {
+        hash: hash,
+      },
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     });
   }
 }
-
+new Request;
 export default Request;
