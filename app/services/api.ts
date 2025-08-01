@@ -1,5 +1,6 @@
 import axios from 'axios';
-const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
+// const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
+const apiUrl = process.env.API_URL || 'http://localhost/coinma/api';
 // const { $axios } = useNuxtApp();
 const $axios = axios.create({
   // baseURL: config.public.apiUrl.replace(/\/$/, ''), // clean trailing slash
@@ -13,7 +14,7 @@ class Request {
         if (error.response?.status === 401) {
           Request.Logout();
           useCookie('auth_token').value = '';
-          window.location.href = '/login';
+          window.location.href = '/';
         }
         return Promise.reject(error)
       }
@@ -87,6 +88,17 @@ class Request {
     return $axios.get(`${apiUrl}/assets`, {
       params: {
         slug: slug,
+      },
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  static userAssets(user_id: any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/assets`, {
+      params: {
+        user_id: user_id,
       },
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,

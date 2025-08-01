@@ -3,11 +3,13 @@ import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
-async function checkSession() {
+async function checkUserData() {
   try {
     const response = await Request.userDetails();
-    userStore.setUser(response.data.user);
-    console.log(response);
+    if ( JSON.stringify(user.value) !== JSON.stringify(response.data.data) ) {
+      userStore.setUser(response.data.data);
+      // console.log(response);
+    }
   } catch (err) {
     userStore.clearUser();
     useCookie('auth_token').value = '';
@@ -24,5 +26,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     useCookie('auth_token').value = '';
     return navigateTo('/');
   }
-  if ( !user ) checkSession();
+  // Check to update user data every 10s
+  setInterval(checkUserData, 10000);
 });

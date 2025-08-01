@@ -7,9 +7,8 @@ const props = defineProps({
     default: false,
   },
   myAssets: {
-    type: Boolean,
+    type: String,
     required: false,
-    default: false,
   },
 });
 
@@ -24,9 +23,11 @@ const loadReq = ref(true);
 async function getAssets() {
   loadReq.value = true;
   try {
-    const response = await Request.allAssets();
-    // console.log(response.data);
-    allAssets.value = response.data.data;    
+    const response:any = ref(null);
+    if(props.myAssets) response.value = await Request.userAssets(props.myAssets);
+    else response.value = await Request.allAssets();
+    // console.log(response.value.data);
+    allAssets.value = response.value.data.data;    
     loadReq.value = false;
   } catch (err:any) {
     console.log(err);
@@ -53,7 +54,11 @@ onMounted(() => {
     </p>
     <div class="w-100" v-else>
       <router-link :to="`/market/${asset.slug}`" class="btn w-100 asset-item p-2 d-flex gap-2 mb-2" v-for="(asset, idx) in allAssets" :key="idx">
-        <img :src="asset.icon" width="50" :alt="asset.shortname" class="my-auto" />
+        <img :src="asset.icon"
+          width="50" height="50"
+          :alt="asset.shortname"
+          class="my-auto rounded-circle"
+        />
         <div class="my-auto text-start ps-1">
           <p class="mb-1" :class="{'text-light':!myAssets}">{{ `${asset.name}` }}</p>
           <small class="m-0 text-light" v-if="myAssets">{{ `${asset.volume} ${asset.unit}` }}</small>
@@ -68,9 +73,16 @@ onMounted(() => {
           <small v-else class="text-danger"><i class="bi bi-arrow-down"></i>{{ asset.rate_change }}%</small>
         </div>
       </router-link>
+
+      <!-- Empty assets -->
+      <div class="w-100 text-center py-4 text-muted" v-if="myAssets && allAssets?.length==0">
+        <i class="bi bi-database-x display-4 mb-4 d-block"></i>
+        <p>You have not purchased any assets so far</p>
+        <router-link to="/market" class="btn btn-success btn-sm px-4">Boy now</router-link>
+      </div>
     </div>
 
-    <p class="m-0 text-center pt-3" v-if="!showall">
+    <p class="m-0 text-center pt-3" v-if="!showall && allAssets.length>5">
       <router-link to="/market/" class="btn btn-sm btn-success bg-teal px-3">See more</router-link>
     </p>
   </section>

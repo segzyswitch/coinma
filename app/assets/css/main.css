@@ -67,9 +67,23 @@ body {
 }
 .btn:focus { box-shadow: none!important; }
 /* breadcrumb */
-.breadcrumb-item a {
-  color: #aaa;
+.breadcrumb-item a { color: #aaa; }
+
+
+/* Hidden scroll */
+.hidden-scroll {
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  /* cursor: grab; */
 }
+.hidden-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+.hidden-scroll.active {
+  cursor: grabbing;
+}
+
 
 /* SWAL */
 .swal2-confirm-button {

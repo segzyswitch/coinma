@@ -35,7 +35,15 @@ async function Register() {
   const FD = formdata.value;
   try {
     const response = await Request.Register(FD);
-    console.log(response.data);
+    // console.log(response.data);
+    if (response.data.status != 'success') {
+      $swal.fire({
+        title: 'Error!',
+        icon: 'warning',
+        text: response?.data?.message ?? 'Error occurred, try again',
+      });
+      return false;
+    }
     $swal.fire({
       title: 'Success',
       icon: 'success',
