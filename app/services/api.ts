@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
-const apiUrl = process.env.API_URL || 'http://localhost/coinma/api';
+const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
+// const apiUrl = process.env.API_URL || 'http://localhost/coinma/api';
 // const { $axios } = useNuxtApp();
 const $axios = axios.create({
   // baseURL: config.public.apiUrl.replace(/\/$/, ''), // clean trailing slash
