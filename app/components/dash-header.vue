@@ -21,8 +21,8 @@ import Request from '~/services/api';
 </script>
 
 <template>
-  <header class="bg-dark round-15 p-3 mb-3">
-    <h4 class="text-green mb-3">My wallet</h4>
+  <header class="bg-dark round-15 p-3 mb-3 pt-4">
+    <!-- <h4 class="text-green mb-3">My wallet</h4> -->
     <div class="w-100 d-flex gap-3 mb-4">
       <p class="my-auto d-none d-sm-block small">#WALLET ID</p>
       <div class="my-auto">

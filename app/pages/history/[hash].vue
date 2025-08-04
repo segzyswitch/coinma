@@ -58,7 +58,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="p-3 bg-dark round-15 mb-4 pb-4">
+  <section class="p-3 mb-4 pb-4">
     <p class="mb-4">
       <button class="btn p-1 me-0 text-light" @click="router.back" aria-label="Close">
         <i class="bi bi-arrow-left"></i> <span class="ps-2">back</span>
@@ -83,7 +83,7 @@ onMounted(() => {
     </div>
   </section>
 
-  <section class="container-fluid bg-dark rounded-3 reciept py-4" v-if="!loadReq">
+  <section class="container-fluid bg-dark round-15 reciept py-4" v-if="!loadReq">
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Coin</div>
       <div class="my-auto">{{ Reciept.name }}</div>
@@ -112,7 +112,14 @@ onMounted(() => {
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Date</div>
-      <div class="my-auto">{{ Reciept.createdat.substring(0,16) }}</div>
+      <div class="my-auto text-end">
+        <span class="d-block">{{ Request.formatSqlDatetime(Reciept.createdat).substring(0,10) }}</span>
+        <small class="d-block">{{ Request.formatSqlDatetime(Reciept.createdat).substring(10,18) }}</small>
+      </div>
+    </div>
+    <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
+      <div class="my-auto">Transaction ID</div>
+      <div class="my-auto">#{{ Reciept.trx }}</div>
     </div>
   </section>
 </template>
@@ -139,5 +146,8 @@ onMounted(() => {
 
 .reciept-item {
   border-color: var(--thm-dark-focus)!important;
+}
+.reciept-item:last-child {
+  border: none!important;
 }
 </style>

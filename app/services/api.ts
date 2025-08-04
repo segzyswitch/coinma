@@ -1,4 +1,6 @@
 import axios from 'axios';
+// SweetAlert
+const { $swal } = useNuxtApp();
 const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
 // const apiUrl = process.env.API_URL || 'http://localhost/coinma/api';
 // const { $axios } = useNuxtApp();
@@ -11,12 +13,25 @@ class Request {
     $axios.interceptors.response.use(
       response => response,
       (error) => {
-        if (error.response?.status === 401) {
+        const currentPath = window.location.pathname;
+
+        // Skip logout logic if on login page
+        const skip401Routes = ['/', '/register']; // Add more paths if needed
+        if (
+          error.response?.status === 401 &&
+          !skip401Routes.includes(currentPath)
+        ) {
           Request.Logout();
           useCookie('auth_token').value = '';
+          $swal.fire({
+            title: 'Sorry!',
+            icon: 'warning',
+            text: 'Session expired',
+          });
           window.location.href = '/';
         }
-        return Promise.reject(error)
+
+        return Promise.reject(error);
       }
     );
   }
@@ -47,6 +62,20 @@ class Request {
     const start = address.slice(4, 2 + startLength);
     const end = address.slice(-endLength);
     return `0x${start}....${end}`;
+  }
+  static formatSqlDatetime(sqlDate: string) {
+    const date = new Date(sqlDate);
+
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+
+    const hours = date.getHours()
+    const minutes = String(date.getMinutes()).padStart(2, '0')
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    const hour12 = hours % 12 || 12;
+
+    return `${day}/${month}/${year} ${hour12}:${minutes}${ampm}`;
   }
 
   // User
@@ -106,7 +135,6 @@ class Request {
     });
   }
   
-
   // Get assets
   static allHistory() {
     const ACCESS_TOKEN = useCookie('auth_token').value;
@@ -122,6 +150,16 @@ class Request {
       params: {
         hash: hash,
       },
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  
+  // Get notifications
+  static allNotifications() {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/notifications`, {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },

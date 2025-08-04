@@ -59,7 +59,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="p-3 bg-dark round-15 mb-3 pb-4">
+  <section class="p-3 mb-3 pb-4">
     <p class="mb-4">
       <button class="btn p-1 me-0 text-light" @click="router.back" aria-label="Close">
         <i class="bi bi-arrow-left"></i> <span class="ps-2">back</span>
@@ -70,7 +70,7 @@ onMounted(() => {
     </p>
     <div class="w-100" v-else>
       <div class="row">
-        <div class="col-2 col-sm-1 mx-auto mb-3 rounded-circle overflow-hidden mb-4">
+        <div class="col-4 col-sm-1 mx-auto mb-3 rounded-circle overflow-hidden mb-4">
           <img :src="Asset.icon" class="w-100" alt="BTC" />
         </div>
       </div>
@@ -82,13 +82,13 @@ onMounted(() => {
           <div class="w-100 d-flex justify-content-around py-4">
             <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid" data-bs-toggle="modal" data-bs-target="#sendModal">
               <i class="bi bi-send d-block h4"></i>
-              <small class="d-block">Send</small>
+              <small class="d-block" style="padding:0 3px;">Send</small>
             </button>
             <button class="btn p-2 round-15 bg-dark-mid text-mid" data-bs-toggle="modal" data-bs-target="#recieveModal">
               <i class="bi bi-send d-block h4" style="transform: rotate(180deg);"></i>
-              <small class="d-block">Recieve</small>
+              <small class="d-block" style="padding:0 2px;">Recieve</small>
             </button>
-            <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid">
+            <button class="btn p-2 px-4 round-15 bg-dark-mid text-mid">
               <i class="bi bi-credit-card d-block h4"></i>
               <small class="d-block">Buy</small>
             </button>
@@ -103,7 +103,7 @@ onMounted(() => {
   </section>
 
   <section class="col-sm-9 mx-auto py-4 mb-4" v-if="loadReq==false">
-    <div class="w-100 d-flex p-3 bg-dark round-15">
+    <div class="w-100 d-flex p-3 gap-2 bg-dark round-15">
       <div class="my-auto text-start">
         <h5 class="text-light mb-3">{{ `${Asset.name}` }}</h5>
         <p class="m-0 text-mid">{{ `${Asset.unit}` }}</p>
@@ -135,7 +135,7 @@ onMounted(() => {
               <i class="bi bi-arrow-left"></i> <span class="ps-2 d-none d-sm-inline">back</span>
             </button>
           </div>
-          <h5 class="modal-title col-8 col-sm-6 my-auto me-auto" id="sendModalLabel"><i class="bi bi-send"></i> Send {{ Asset.name }}</h5>
+          <h5 class="modal-title col-8 col-sm-6 my-auto me-auto" id="sendModalLabel">Send {{ Asset.name }}</h5>
         </div>
         <div class="modal-body py-5 px-4 text-center">
           <div class="w-100 howtosend" v-if="!sendType">
@@ -146,8 +146,8 @@ onMounted(() => {
                 <div class="button w-100 text-mid btn bg-dark-mid p-3 d-flex mb-3 rounded-3">
                   <div class="rounded-circle aspect-ratio-1x1 my-auto p-2 bg-primary"><i class="bi bi-send px-1"></i></div>
                   <div class="my-auto ps-3 text-start">
-                    <p class="m-0">Send crypto</p>
-                    <small>Send crypto to an external {{ Asset.name }} wallet</small>
+                    <p class="m-0">Send {{ Asset.unit }}</p>
+                    <small class="text-mute">Send {{ Asset.unit }} to an external {{ Asset.name }} wallet</small>
                   </div>
                 </div>
               </label>
@@ -157,13 +157,13 @@ onMounted(() => {
                   <div class="rounded-circle aspect-ratio-1x1 my-auto p-2 bg-teal"><i class="bi bi-bank px-1"></i></div>
                   <div class="my-auto ps-3 text-start">
                     <p class="m-0">Send money</p>
-                    <small>Send funds to your bank</small>
+                    <small class="text-mute">Send funds to your bank account</small>
                   </div>
                 </div>
               </label>
             </div>
           </div>
-          <div class="w-100 crypto my-forms text-start" v-if="sendType==='crypto'">
+          <form @submit.prevent class="w-100 crypto my-forms text-start" v-if="sendType==='crypto'">
             <h5 class="mb-4">Send to external wallet</h5>
             <div class="form-group">
               <label>Sending from:</label>
@@ -190,8 +190,8 @@ onMounted(() => {
             <p class="pt-3 mb-0">
               <button type="button"  class="btn btn-primary px-4 py-2">Continue</button>
             </p>
-          </div>
-          <div class="w-100 funds my-forms text-start" v-if="sendType==='funds'">
+          </form>
+          <form @submit.prevent class="w-100 funds my-forms text-start" v-if="sendType==='funds'">
             <h5 class="mb-4">Send to Bank</h5>
             <p class="mb-4">Enter the recipicient bank details below</p>
             <div class="form-group">
@@ -484,7 +484,7 @@ onMounted(() => {
             <p class="pt-3 mb-0">
               <button type="button"  class="btn btn-success bg-teal px-4 py-2">Send now</button>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -500,7 +500,7 @@ onMounted(() => {
               <i class="bi bi-arrow-left"></i> <span class="ps-2 d-none d-sm-inline">close</span>
             </button>
           </div>
-          <h5 class="modal-title col-8 col-sm-6 my-auto me-auto" id="recieveModalLabel"><i class="bi bi-send" style="transform: rotate(180deg);"></i> Recieve</h5>
+          <h5 class="modal-title col-8 col-sm-6 my-auto me-auto" id="recieveModalLabel">Recieve</h5>
         </div>
         <div class="modal-body py-5 px-4 text-center">
           <div class="w-100 crypto my-forms">

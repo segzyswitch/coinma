@@ -47,10 +47,10 @@ async function Logout() {
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#" data-bs-toggle="tab">
+          <router-link to="/settings" class="nav-link text-light">
             <i class="bi bi-gear"></i>
             <span>Settings</span>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <button type="button" class="btn w-100 nav-link text-light text-start" @click="Logout">
@@ -67,18 +67,18 @@ async function Logout() {
         <i class="bi bi-house-door-fill"></i>
         <span>Dashboard</span>
       </router-link>
-      <router-link to="/history" class="nav-link text-light">
-        <i class="bi bi-clock-history"></i>
-        <span>History</span>
-      </router-link>
       <router-link to="/wallets" class="nav-link text-light">
         <i class="bi bi-wallet"></i>
         <span>Wallets</span>
       </router-link>
-      <a class="nav-link text-light" href="#">
+      <router-link to="/history" class="nav-link text-light">
+        <i class="bi bi-clock-history"></i>
+        <span>History</span>
+      </router-link>
+      <router-link to="/settings" class="nav-link text-light">
         <i class="bi bi-gear"></i>
         <span>Settings</span>
-      </a>
+      </router-link>
     </footer>
   </div>
 </template>

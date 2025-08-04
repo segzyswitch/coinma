@@ -52,6 +52,7 @@ body {
 .text-green { color: var(--thm-green); }
 .text-teal { color: var(--thm-teal); }
 .text-mid { color: #ccc!important; }
+.text-muted { color: #898989!important; }
 .bg-dark { background-color: var(--thm-dark)!important; }
 .bg-purple { background-color: var(--thm-purple)!important; }
 .bg-teal { background-color: var(--thm-teal)!important; }
@@ -70,19 +71,6 @@ body {
 .breadcrumb-item a { color: #aaa; }
 
 
-/* Hidden scroll */
-.hidden-scroll {
-  overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-  /* cursor: grab; */
-}
-.hidden-scroll::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-.hidden-scroll.active {
-  cursor: grabbing;
-}
 
 
 /* SWAL */
@@ -100,3 +88,24 @@ body {
   color: #ccc;
 }
 .modal-header, .modal-footer { border-color: var(--thm-dark-focus); }
+
+
+.hidden-scroll {
+  scrollbar-width: thin;                /* For Firefox */
+  scrollbar-color: #2E2D2D var(--thm-dark); /* Thumb and track colors */
+  overflow: auto;        /* Ensure scrolling */
+}
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.hidden-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.hidden-scroll::-webkit-scrollbar-track {
+  background: inherit;
+}
+.hidden-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--thm-dark-focus);
+  border-radius: 8px;
+  border: 2px solid transparent; /* Optional: spacing between thumb & track */
+  background-clip: content-box;   /* Makes the border visible */
+}

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-      title: 'Nuxt', // default fallback title
+      title: 'Coinma | Sign in to your Coinma wallet', // default fallback title
       htmlAttrs: {
         lang: 'en',
       },

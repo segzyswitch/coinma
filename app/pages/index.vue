@@ -17,10 +17,13 @@ const { $swal } = useNuxtApp();
 // Use Pinia store
 import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
+// User client services
+const deviceInfo = await useHybridDeviceInfo();
 
 const formdata = ref({
   email: '',
-  password: ''
+  password: '',
+  device_info: {}
 });
 const formerr = ref({
   email: '',
@@ -31,20 +34,24 @@ const loadReq = ref(false);
 async function Login() {
   loadReq.value = true;
   const FD = formdata.value;
+  FD.device_info = deviceInfo;
+  // return console.log(FD);
   try {
     const response = await Request.Login(FD);
-    // console.log(response.data);
+    // return console.log(response.data);
     if (response.data.status != 'success') {
       $swal.fire({
         title: 'Error!',
         icon: 'warning',
         text: response?.data?.message ?? 'Error occurred, try again',
       });
+      loadReq.value = false;
+      console.log(response)
       return false;
     }
     // set login session
     useCookie('auth_token').value = response.data.token;
-    const userData = response.data.user;
+    const userData = response.data.data;
     // set user data in Pinia store
     userStore.setUser(userData);
     $swal.fire({
@@ -68,8 +75,8 @@ async function Login() {
 </script>
 
 <template>
-  <div class="w-100 d-flex overflow-hidden">
-    <div class="col-sm-4 p-3 pt-5 mx-auto">
+  <div class="w-100 d-flex overflow-hidden" style="min-height:100vh;">
+    <div class="col-sm-4 p-3 pt-5 m-auto">
       <div class="text-center mb-4">
         <h1 class="text-light mb-4">.coinma</h1>
         <h3 class="text-green">Welcome back</h3>
@@ -101,7 +108,7 @@ async function Login() {
           <a href="#" class="btn text-muted ms-auto p-0 small">Forgot Password?</a>
         </div>
         <div class="form-group text-center">
-          <button class="btn btn-success bg-green w-100">
+          <button class="btn btn-success bg-green w-100" :disabled="loadReq">
             <i class="spinner-border spinner-border-sm" v-if="loadReq"></i>
             <span v-else>Sign In</span>
           </button>
