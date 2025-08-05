@@ -70,8 +70,8 @@ onMounted(() => {
     </p>
     <div class="w-100" v-else>
       <div class="row">
-        <div class="col-4 col-sm-1 mx-auto mb-3 rounded-circle overflow-hidden mb-4">
-          <img :src="Asset.icon" class="w-100" alt="BTC" />
+        <div class="col-4 col-sm-1 mx-auto mb-3 rounded-circle overflow-hidden mb-4 p-0">
+          <img :src="Asset.icon" class="w-100 rounded-circle" alt="BTC" />
         </div>
       </div>
       <div class="row">
