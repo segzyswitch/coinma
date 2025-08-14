@@ -1,7 +1,7 @@
 import axios from 'axios';
 // SweetAlert
 const { $swal } = useNuxtApp();
-const apiUrl = process.env.API_URL || 'https://coinma.aaveinvestment.org';
+const apiUrl = process.env.API_URL || 'https://cratobyte.partnerstrustcu.com/api';
 // const apiUrl = process.env.API_URL || 'http://localhost/coinma/api';
 // const { $axios } = useNuxtApp();
 const $axios = axios.create({

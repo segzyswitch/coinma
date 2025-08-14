@@ -41,7 +41,7 @@ onMounted(() => {
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-1 mb-4">
     <div class="container-fluid">
-      <router-link to="/dashboard" class="navbar-brand"><span class="h2 text-monospace">.coinma</span></router-link>
+      <router-link to="/dashboard" class="navbar-brand"><span class="h2 text-monospace"><img src="/white-logo.png" height="40" /></span></router-link>
       <button class="btn navbar-toggler d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="bar w-100"></span>
         <span class="bar w-100"></span>

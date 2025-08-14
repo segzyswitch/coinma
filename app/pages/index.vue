@@ -78,7 +78,7 @@ async function Login() {
   <div class="w-100 d-flex overflow-hidden" style="min-height:100vh;">
     <div class="col-sm-4 p-3 pt-5 m-auto">
       <div class="text-center mb-4">
-        <h1 class="text-light mb-4">.coinma</h1>
+        <h1 class="text-light mb-4"><img src="/white-logo.png" height="40" /></h1>
         <h3 class="text-green">Welcome back</h3>
       </div>
       <form @submit.prevent="Login"

@@ -108,6 +108,8 @@ async function Logout() {
 .sidebar .nav-link i.bi {
   font-size: 1.4em;
   margin-right: 10px;
+  position: relative;
+  top: 3.5px;
 }
 .sidebar .nav-link.router-link-active {
   color: #aaa!important;

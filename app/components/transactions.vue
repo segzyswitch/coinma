@@ -55,7 +55,7 @@ onMounted(() => {
             <small class="text-teal">From {{ Request.shortenAddress(history.send_from) }}</small>
           </div>
           <div class="ms-auto my-auto text-end">
-            <p class="mb-1 small"><span class="text-success">+</span>{{ history.units }}</p>
+            <p class="mb-1 small"><span class="text-success">+</span>{{ `${history.units} ${history.asset.unit}` }}</p>
             <p class="text-success m-0">{{ Request.formatToCurrency(history.amount) }}</p>
           </div>
         </div>
