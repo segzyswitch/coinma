@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Dashboard - Coinma',
+  title: 'Dashboard - Cratobyte',
 });
 definePageMeta({
   layout: 'dashboard',

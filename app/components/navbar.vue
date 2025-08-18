@@ -41,7 +41,7 @@ onMounted(() => {
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-1 mb-4">
     <div class="container-fluid">
-      <router-link to="/dashboard" class="navbar-brand"><span class="h2 text-monospace"><img src="/white-logo.png" height="40" /></span></router-link>
+      <router-link to="/dashboard" class="navbar-brand"><span class="h2 text-monospace"><img src="https://images.cratobyte.com/logo-light.png" height="45" /></span></router-link>
       <button class="btn navbar-toggler d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="bar w-100"></span>
         <span class="bar w-100"></span>
@@ -88,7 +88,7 @@ onMounted(() => {
 
   <div class="offcanvas offcanvas-start" style="width:80%;" tabindex="-1" id="mobileMenu">
     <div class="offcanvas-header bg-dark">
-      <router-link to="/dashboard" class="btn p-0 text-light"><span class="h2">.coima</span></router-link>
+      <router-link to="/dashboard" class="btn p-0 text-light"><img src="https://images.cratobyte.com/logo-light.png" height="45" /></router-link>
       <button type="button" class="btn p-0 text-mid" data-bs-dismiss="offcanvas" aria-label="Close">
         <!-- <i class="bi bi-x-lg h3 m-0"></i> -->
         <i class="bi bi-arrow-90deg-left h3 m-0"></i>

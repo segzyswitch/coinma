@@ -59,6 +59,7 @@ async function withdrawal() {
       });
       console.log(response?.data);
       loadData.value = false;
+      sendType.value = null;
       return false;
     }
     closeModal('sendModal');
@@ -71,6 +72,7 @@ async function withdrawal() {
   } catch (err:any) {
     console.log(err);
     loadData.value = false;
+      sendType.value = null;
     $swal.fire({
       title: 'Error!',
       icon: 'warning',
@@ -131,10 +133,10 @@ async function withdrawal() {
                   <img :src="Asset.icon" width="50" alt="BTC" class="rounded-circle my-auto" />
                   <div class="my-auto">
                     <p class="text-mid mb-1">{{ Asset.name }}</p>
-                    <h5 class="my-auto">{{ Request.formatToCurrency(Asset.volume_price) }}</h5>
+                    <p class="my-auto">{{ Request.formatToCurrency(Asset.volume_price) }}</p>
                   </div>
                   <div class="my-auto ms-auto">
-                    <h5 class="text-light mb-0">{{ `${Asset.volume} ${Asset.unit}` }}</h5>
+                    <p class="text-light mb-0">{{ `${Asset.volume} ${Asset.unit}` }}</p>
                   </div>
                 </div>
               </div>
@@ -159,7 +161,7 @@ async function withdrawal() {
                 <p class="m-0">Authorize this transaction by entering the OTP sent to {{ maskEmail(user?.email) }}</p>
               </div>
               <div class="w-100  py-4">
-                <OtpInput v-model="otp" :length="6" />
+                <OtpInput v-model="otp" :length="5" />
               </div>
               <p class="pt-3 mb-0">
                 <button type="submit" :disabled="loadData" class="btn btn-success bg-teal px-4 py-2">

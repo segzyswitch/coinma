@@ -76,7 +76,7 @@ async function Register() {
   <div class="w-100 d-flex overflow-hidden">
     <div class="col-sm-5 p-3 pt-5 mx-auto">
       <div class="text-center mb-4">
-        <h1 class="text-light mb-4"><img src="/white-logo.png" height="40" /></h1>
+        <h1 class="text-light mb-4"><img src="https://images.cratobyte.com/logo-light.png" height="50" /></h1>
         <h3 class="text-green">Create an account</h3>
       </div>
       <form @submit.prevent="Register"
