@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     '/**': { prerender: true }
   },
   app: {
-    baseURL: '/app', // change if deploying to subfolder, e.g. '/myapp/'
+    // baseURL: '/app', // change if deploying to subfolder, e.g. '/myapp/'
     head: {
       title: 'Cratobyte | Sign in to your Cratobyte wallet', // default fallback title
       meta: [
