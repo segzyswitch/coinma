@@ -60,12 +60,12 @@ onMounted(() => {
           class="my-auto rounded-circle"
         />
         <div class="my-auto text-start ps-1">
-          <p class="mb-1" :class="{'text-light':!myAssets}">{{ `${asset.name}` }}</p>
+          <p class="mb-1" :class="{'text-light':!myAssets}">{{ `${asset.name}` }} <small v-if="asset.shortname!=asset.unit">({{ asset.shortname }})</small></p>
           <small class="m-0 text-light" v-if="myAssets">{{ `${asset.volume} ${asset.unit}` }}</small>
           <small class="m-0" v-else>{{ `${asset.unit}` }}</small>
         </div>
         <div class="ms-auto my-auto text-end text-muted" v-if="myAssets">
-          <h5 class="m-0 text-mid">{{ Request.formatToCurrency(asset.volume_price) }}</h5>
+          <p class="m-0 text-mid">{{ Request.formatToCurrency(asset.volume_price) }}</p>
         </div>
         <div class="ms-auto my-auto text-end text-muted" v-else>
           <p class="mb-1 text-mid">{{ Request.formatToCurrency(asset.price) }}</p>

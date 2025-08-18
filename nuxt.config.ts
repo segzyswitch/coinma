@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   ssr: false,
+  nitro: {
+    preset: 'static'
+  },
   modules: ['@pinia/nuxt'],
   vite: {
     server: {
@@ -12,7 +15,12 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/main.css',
   ],
+  // Tell Nuxt to pre-render known routes
+  routeRules: {
+    '/**': { prerender: true }
+  },
   app: {
+    baseURL: '/', // change if deploying to subfolder, e.g. '/myapp/'
     head: {
       title: 'Coinma | Sign in to your Coinma wallet', // default fallback title
       htmlAttrs: {

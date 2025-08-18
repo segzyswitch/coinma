@@ -42,6 +42,8 @@ async function Register() {
         icon: 'warning',
         text: response?.data?.message ?? 'Error occurred, try again',
       });
+      console.log(response?.data);
+      loadReq.value = false;
       return false;
     }
     $swal.fire({

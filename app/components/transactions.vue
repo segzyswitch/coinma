@@ -59,6 +59,38 @@ onMounted(() => {
             <p class="text-success m-0">{{ Request.formatToCurrency(history.amount) }}</p>
           </div>
         </div>
+        <div class="d-flex w-100 gap-2" v-else-if="history.type=='withdraw'">
+          <span class="trx-icon light-danger text-danger btn rounded-circle"><i class="bi bi-arrow-up h4 m-auto"></i></span>
+          <div class="my-auto">
+            <p class="mb-1 text-mid text-capitalize">Sent {{ history.asset.name }}</p>
+            <small class="text-muted">To {{ Request.shortenAddress(history.send_to) }}</small>
+          </div>
+          <div class="ms-auto my-auto text-end">
+            <p class="mb-1 small"><span class="text-danger">-</span>{{ `${history.units} ${history.asset.unit}` }}</p>
+            <p class="text-danger m-0">
+              <span>{{ Request.formatToCurrency(history.amount) }}</span>
+              <!-- <small class="ps-2 text-warning" v-if="history.status=='pending'">pending</small>
+              <small class="ps-2 text-warning" v-else-if="history.status=='completed'">completed</small>
+              <small class="ps-2 text-warning" v-else>{{ history.status }}</small> -->
+            </p>
+          </div>
+        </div>
+        <div class="d-flex w-100 gap-2" v-else-if="history.type=='deposit'">
+          <span class="trx-icon light-success text-success btn rounded-circle"><i class="bi bi-arrow-down h4 m-auto"></i></span>
+          <div class="my-auto">
+            <p class="mb-1 text-mid text-capitalize">Top up {{ history.asset.name }}</p>
+            <small class="text-muted">To {{ Request.shortenAddress(history.send_to) }}</small>
+          </div>
+          <div class="ms-auto my-auto text-end">
+            <p class="mb-1 small"><span class="text-success">+</span>{{ `${history.units} ${history.asset.unit}` }}</p>
+            <p class="text-success m-0">
+              <span>{{ Request.formatToCurrency(history.amount) }}</span>
+              <!-- <small class="ps-2 text-warning" v-if="history.status=='pending'">pending</small>
+              <small class="ps-2 text-warning" v-else-if="history.status=='completed'">completed</small>
+              <small class="ps-2 text-warning" v-else>{{ history.status }}</small> -->
+            </p>
+          </div>
+        </div>
       </router-link>
       
       <!-- Empty assets -->

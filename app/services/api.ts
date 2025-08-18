@@ -165,6 +165,37 @@ class Request {
       },
     });
   }
+  
+  // OTP
+  static requestOTP(email:string) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/otp`, {
+      params: {
+        email: email,
+      },
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  // Withdraw
+  static Withdraw(FD:any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.post(`${apiUrl}/history`, FD, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  // Deposit
+  static Deposit(FD:any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.post(`${apiUrl}/history`, FD, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
 }
 new Request;
 export default Request;

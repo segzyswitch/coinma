@@ -41,7 +41,7 @@ onMounted(() => {
         <div class="w-100 p-3 round-15 text-light"
           style="background:radial-gradient(transparent, rgba(0, 0, 0, 0.3));">
           <div class="d-flex gap-2 mb-3">
-            <img :src="asset.icon" class="my-auto" width="40" alt="" />
+            <img :src="asset.icon" class="my-auto rounded-circle" width="40" alt="" />
             <div class="my-auto small">
               <p class="m-0">{{ asset.name }}</p>
               <small>{{ asset.unit }}</small>

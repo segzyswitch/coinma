@@ -44,6 +44,7 @@ body {
 .my-forms .form-group:focus-within .input-group-text {
   border-color: var(--thm-green);
   color: var(--thm-green);
+  border-right-color: transparent;
 }
 
 
@@ -79,6 +80,9 @@ body {
   border-color: var(--thm-green)!important;
   color: #fff!important;
   padding: 7.5px 25px;
+  margin-top: .5em;
+  margin-bottom: 1.5em;
+  scale: 1.2;
 }
 
 /* Modals */
@@ -101,11 +105,10 @@ body {
   height: 8px;
 }
 .hidden-scroll::-webkit-scrollbar-track {
-  background: inherit;
+  background: transparent;
 }
 .hidden-scroll::-webkit-scrollbar-thumb {
   background-color: var(--thm-dark-focus);
   border-radius: 8px;
-  border: 2px solid transparent; /* Optional: spacing between thumb & track */
   background-clip: content-box;   /* Makes the border visible */
 }

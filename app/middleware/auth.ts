@@ -27,5 +27,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return navigateTo('/');
   }
   // Check to update user data every 10s
-  // setInterval(checkUserData, 10000);
+  setInterval(checkUserData, 10000);
 });

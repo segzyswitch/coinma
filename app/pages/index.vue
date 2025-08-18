@@ -46,7 +46,7 @@ async function Login() {
         text: response?.data?.message ?? 'Error occurred, try again',
       });
       loadReq.value = false;
-      console.log(response)
+      console.log(response);
       return false;
     }
     // set login session
@@ -59,7 +59,9 @@ async function Login() {
       icon: 'success',
       text: response.data.message,
     });
-    loadReq.value = false;
+    // loadReq.value = false;
+    FD.email = '';
+    FD.password = '';
     // redirect to dashboard
     router.push('/dashboard');
   } catch (err:any) {

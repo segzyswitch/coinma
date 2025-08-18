@@ -70,12 +70,14 @@ onMounted(() => {
     <div class="w-100" v-else>
       <div class="row">
         <div class="col-3 col-sm-1 mx-auto mb-3 rounded-circle overflow-hidden mb-4 p-0">
-          <img :src="Reciept.icon" class="w-100 rounded-circle" alt="BTC" />
+          <img :src="Reciept.icon" class="w-100 rounded-circle" :alt="Reciept.name" />
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 text-center mx-auto">
-          <h4 class="text-mid mb-3">{{ Reciept.name }}</h4>
+          <h4 class="text-mid mb-3" v-if="Reciept.type=='credit'">Recieved {{ Reciept.name }} <span v-if="Reciept.shortname!=Reciept.unit">({{ Reciept.shortname }})</span></h4>
+          <h4 class="text-mid mb-3" v-if="Reciept.type=='deposit'">Top up {{ Reciept.name }} <span v-if="Reciept.shortname!=Reciept.unit">({{ Reciept.shortname }})</span></h4>
+          <h4 class="text-mid mb-3" v-if="Reciept.type=='withdraw'">Sent {{ Reciept.name }} <span v-if="Reciept.shortname!=Reciept.unit">({{ Reciept.shortname }})</span></h4>
           <p class="text-mid mb-2">{{ `${Reciept.units} ${Reciept.unit}` }}</p>
           <h4 class="text-light mb-2">{{ Request.formatToCurrency(Reciept.amount) }}</h4>
         </div>
@@ -90,11 +92,15 @@ onMounted(() => {
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Unit</div>
-      <div class="my-auto text-green">{{ `${Reciept.units} ${Reciept.unit}` }}</div>
+      <div class="my-auto text-green" v-if="Reciept.type=='credit'">{{ `${Reciept.units} ${Reciept.unit}` }}</div>
+      <div class="my-auto text-green" v-if="Reciept.type=='deposit'">{{ `${Reciept.units} ${Reciept.unit}` }}</div>
+      <div class="my-auto text-danger" v-if="Reciept.type=='withdraw'">{{ `${Reciept.units} ${Reciept.unit}` }}</div>
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Amount</div>
-      <div class="my-auto text-green">{{ Request.formatToCurrency(Reciept.amount) }}</div>
+      <div class="my-auto text-green" v-if="Reciept.type=='credit'">{{ Request.formatToCurrency(Reciept.amount) }}</div>
+      <div class="my-auto text-green" v-if="Reciept.type=='deposit'">{{ Request.formatToCurrency(Reciept.amount) }}</div>
+      <div class="my-auto text-danger" v-if="Reciept.type=='withdraw'">{{ Request.formatToCurrency(Reciept.amount) }}</div>
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Address</div>
@@ -106,9 +112,9 @@ onMounted(() => {
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Status</div>
-      <div class="my-auto text-green" v-if="Reciept.trx_status=='completed'">{{ Reciept.trx_status }}</div>
-      <div class="my-auto text-warning" v-else-if="Reciept.trx_status=='pending'">{{ Reciept.trx_status }}</div>
-      <div class="my-auto text-danger" v-else>{{ Reciept.trx_status }}</div>
+      <div class="my-auto text-green" v-if="Reciept.status=='completed'">Completed</div>
+      <div class="my-auto text-warning" v-else-if="Reciept.status=='pending'">Pending</div>
+      <div class="my-auto text-danger" v-else>{{ Reciept.status }}</div>
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Date</div>
