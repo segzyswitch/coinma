@@ -1,6 +1,7 @@
 <script setup lang="ts">
+const pageTitle:string = 'View Asset - Cratobyte';
 useHead({
-  title: 'All Markets - Coinma',
+  title: pageTitle,
 });
 definePageMeta({
   layout: 'dashboard',
@@ -69,6 +70,8 @@ function maskEmail(email: string): string {
 
   return `${visibleStart}${masked}${visibleEnd}@${domain}`
 }
+import Transactions from '~/components/transactions.vue'
+const TransactionsRef = ref<InstanceType<typeof Transactions> | null>(null)
 
 onMounted(() => {
   getAsset();
@@ -76,7 +79,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="p-3 mb-3 pb-4">
+  <section class="row mb-3 pb-4">
     <!-- <p class="text-light">{{ Asset }}</p> -->
     <p class="mb-4">
       <button class="btn p-1 me-0 text-light" @click="router.back" aria-label="Close">
@@ -93,26 +96,26 @@ onMounted(() => {
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6 text-center mx-auto">
+        <div class="col-sm-6 text-center mx-auto px-0">
           <h4 class="text-mid mb-1">{{ Asset.name }} <span v-if="Asset.shortname!=Asset.unit">({{ Asset.shortname }})</span></h4>
           <h2 class="text-light mb-1">{{ Request.formatToCurrency(Asset.volume_price) }}</h2>
           <p class="text-muted">{{ `${Asset.volume} ${Asset.unit}` }}</p>
           <div class="w-100 d-flex justify-content-around py-4">
-            <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid" data-bs-toggle="modal" data-bs-target="#sendModal">
-              <i class="bi bi-send d-block h4"></i>
+            <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid" style="scale:1;" data-bs-toggle="modal" data-bs-target="#sendModal">
+              <i class="bi bi-send d-block h5"></i>
               <small class="d-block" style="padding:0 3px;">Send</small>
             </button>
-            <button class="btn p-2 round-15 bg-dark-mid text-mid" data-bs-toggle="modal" data-bs-target="#recieveModal">
-              <i class="bi bi-send d-block h4" style="transform: rotate(180deg);"></i>
+            <button class="btn p-2 round-15 bg-dark-mid text-mid" style="scale:1;" data-bs-toggle="modal" data-bs-target="#recieveModal">
+              <i class="bi bi-send d-block h5" style="transform: rotate(180deg);"></i>
               <small class="d-block" style="padding:0 2px;">Recieve</small>
             </button>
-            <button class="btn p-2 px-4 round-15 bg-dark-mid text-mid">
-              <i class="bi bi-credit-card d-block h4"></i>
+            <button class="btn p-2 px-4 round-15 bg-dark-mid text-mid" style="scale:1;">
+              <i class="bi bi-credit-card d-block h5"></i>
               <small class="d-block">Buy</small>
             </button>
-            <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid">
-              <i class="bi bi-arrow-left-right d-block h4"></i>
-              <small class="d-block">Swap</small>
+            <button data-bs-toggle="modal" data-bs-target="#connectModal" class="btn p-2 round-15 bg-dark-mid text-mid" style="scale:1;">
+              <i class="bi bi-arrow-left-right d-block h5"></i>
+              <small class="d-block">Connect</small>
             </button>
           </div>
         </div>
@@ -137,14 +140,14 @@ onMounted(() => {
     </div>
   </section>
 
-  <AllAssets />
+  <Transactions ref="TransactionsRef" />
 
   
   <!-- Send Modal -->
   <SendModal :Asset="Asset" :maskEmail="maskEmail" :user="user" />
   
   <!-- Recieve Modal -->
-  <depositModal :Asset="Asset" :maskEmail="maskEmail" :user="user" />
+  <depositModal :Asset="Asset" :maskEmail="maskEmail" @added="getAsset" :user="user" />
 </template>
 
 <style scoped>

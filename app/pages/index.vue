@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Coinma - Sign in to your Coinma wallet',
+  title: 'Cratobyte - Sign in to your Cratobyte wallet',
 });
 definePageMeta({
   middleware: 'guest',
@@ -17,8 +17,15 @@ const { $swal } = useNuxtApp();
 // Use Pinia store
 import { useUserStore } from '~/store/user';
 const userStore = useUserStore();
+
+
 // User client services
-const deviceInfo = await useHybridDeviceInfo();
+const deviceInfo:any = ref({});
+try {
+  deviceInfo.value = await useHybridDeviceInfo();
+} catch (err) {
+  console.log(err)
+}
 
 const formdata = ref({
   email: '',
@@ -80,7 +87,7 @@ async function Login() {
   <div class="w-100 d-flex overflow-hidden" style="min-height:100vh;">
     <div class="col-sm-4 p-3 pt-5 m-auto">
       <div class="text-center mb-4">
-        <h1 class="text-light mb-4"><img src="https://images.cratobyte.com/logo-light.png" height="50" /></h1>
+        <h1 class="text-light mb-4"><img src="https://cratobyte.com/logo.png" height="40" /></h1>
         <h3 class="text-green">Welcome back</h3>
       </div>
       <form @submit.prevent="Login"

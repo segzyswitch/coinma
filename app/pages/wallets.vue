@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Wallets - Coinma',
+  title: 'Wallets - Cratobyte',
 });
 definePageMeta({
   layout: 'dashboard',

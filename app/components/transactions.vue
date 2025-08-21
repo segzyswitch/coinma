@@ -5,7 +5,7 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
-  }
+  },
 });
 // Import API
 import Request from '~/services/api';
@@ -36,11 +36,13 @@ async function getHistory() {
 onMounted(() => {
   getHistory();
 });
+
+defineExpose({ getHistory })
 </script>
 
 <template>
-  <section class="p-3 bg-dark round-15 mb-3">
-    <h5 class="text-light mb-3">Recent Transactions</h5>
+  <section class="p-0 p-sm-3 bg-dark round-15 mb-4">
+    <h5 class="text-light mb-3 p-3">Recent Transactions</h5>
 
     <p class="text-center py-5 text-mid" v-if="loadReq">
       <i class="spinner-border"></i>

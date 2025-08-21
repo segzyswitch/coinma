@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     '/**': { prerender: true }
   },
   app: {
-    // baseURL: '/app', // change if deploying to subfolder, e.g. '/myapp/'
+    baseURL: '/app', // change if deploying to subfolder, e.g. '/myapp/'
     head: {
       title: 'Cratobyte | Sign in to your Cratobyte wallet', // default fallback title
       meta: [
@@ -39,17 +39,17 @@ export default defineNuxtConfig({
         {
           property: "og:description",
           content:
-            "Experience the safest crypto wallet for everyone. Save, swap, and trade over 1000+ cryptocurrencies with Cratobyte — simple, secure, and built for the future.",
+            "Experience the safest crypto wallet for everyone. Over 1000+ cryptocurrencies with Cratobyte — simple, secure, and built for the future.",
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: "https://cratobyte.com" }, // replace with your domain
-        { property: "og:image", content: "https://images.cratobyte.com/logo-light.png" }, // add your OG image
+        { property: "og:image", content: "https://images.cratobyte.com/logo.png" }, // add your OG image
       ],
       htmlAttrs: {
         lang: 'en',
       },
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: 'https://images.cratobyte.com/icon.png' },
+        { rel: 'icon', type: 'image/x-icon', href: 'https://cratobyte.com/icon.png' },
         { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' },
         { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css' },
       ],

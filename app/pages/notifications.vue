@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Account notifications - Coinma',
+  title: 'Account notifications - Cratobyte',
 });
 definePageMeta({
   layout: 'dashboard',

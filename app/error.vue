@@ -13,7 +13,7 @@ console.log(props.error);
 <template>
   <div class="w-100 vh-100 d-flex">
     <div class="text-light text-center m-auto">
-      <i class="bi bi-wifi-off text-mid display-4 mb-4"></i>
+      <i class="bi bi-wifi-off text-muted display-1 mb-4 d-inline-block"></i>
 
       <h5 class="mb-5">Check your internet connection!</h5>
       <a href="/" class="btn btn-success bg-teal px-4">Reload</a>

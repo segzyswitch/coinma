@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Profile Settings - Coinma',
+  title: 'Profile Settings - Cratobyte',
 });
 definePageMeta({
   layout: 'dashboard',

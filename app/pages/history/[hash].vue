@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'All Markets - Coinma',
+  title: 'All Markets - Cratobyte',
 });
 definePageMeta({
   layout: 'dashboard',

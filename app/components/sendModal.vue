@@ -43,7 +43,7 @@ async function withdrawal() {
   const FD = {
     confirm_withdrawal: true,
     amount: formdata.value.amount,
-    asset_id: props.Asset.asset_id,
+    asset_id: props.Asset.id,
     wallet_addr: formdata.value.wallet_addr,
     otp: otp.value
   };

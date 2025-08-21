@@ -37,15 +37,16 @@ const handleFileChange = (e: Event) => {
   }
 };
 
+const emit = defineEmits<{ (e: 'added'): void }>();
+
 async function Deposit() {
   loadData.value = true;
   const FD = new FormData();
   FD.append("deposit", "true");
   FD.append("amount", formdata.value.amount);
-  FD.append("asset_id", props.Asset.asset_id);
+  FD.append("asset_id", props.Asset.id);
   FD.append("wallet_addr", props.Asset.wallet_address);
   FD.append("proof", file.value);
-  
   try {
     const response = await Request.Deposit(FD);
     // console.log(response.data);
@@ -60,6 +61,7 @@ async function Deposit() {
       return false;
     }
     closeModal('recieveModal');
+    emit('added'); // tell parent to reload list
     $swal.fire({
       title: 'Success',
       icon: 'success',
