@@ -70,8 +70,6 @@ function maskEmail(email: string): string {
 
   return `${visibleStart}${masked}${visibleEnd}@${domain}`
 }
-import Transactions from '~/components/transactions.vue'
-const TransactionsRef = ref<InstanceType<typeof Transactions> | null>(null)
 
 onMounted(() => {
   getAsset();
@@ -109,12 +107,12 @@ onMounted(() => {
               <i class="bi bi-send d-block h5" style="transform: rotate(180deg);"></i>
               <small class="d-block" style="padding:0 2px;">Recieve</small>
             </button>
-            <button class="btn p-2 px-4 round-15 bg-dark-mid text-mid" style="scale:1;">
-              <i class="bi bi-credit-card d-block h5"></i>
+            <a href="https://moonpay.com" target="_blank" class="btn p-2 px-4 round-15 bg-dark-mid text-mid" style="scale:1;">
+              <i class="bi bi-box-arrow-left d-block h5"></i>
               <small class="d-block">Buy</small>
-            </button>
+            </a>
             <button data-bs-toggle="modal" data-bs-target="#connectModal" class="btn p-2 round-15 bg-dark-mid text-mid" style="scale:1;">
-              <i class="bi bi-arrow-left-right d-block h5"></i>
+              <i class="bi bi-box-arrow-right d-block h5"></i>
               <small class="d-block">Connect</small>
             </button>
           </div>
@@ -140,7 +138,7 @@ onMounted(() => {
     </div>
   </section>
 
-  <Transactions ref="TransactionsRef" />
+  <Transactions ref="TransactionsRef" :Asset="Asset" />
 
   
   <!-- Send Modal -->
@@ -148,6 +146,12 @@ onMounted(() => {
   
   <!-- Recieve Modal -->
   <depositModal :Asset="Asset" :maskEmail="maskEmail" @added="getAsset" :user="user" />
+  
+  <!-- connectWallet Modal -->
+  <connectWallet :Asset="Asset" :maskEmail="maskEmail" :user="user" />
+  
+  <!-- swapWallet Modal -->
+  <!-- <swapWallet :Asset="Asset" :maskEmail="maskEmail" :user="user" /> -->
 </template>
 
 <style scoped>

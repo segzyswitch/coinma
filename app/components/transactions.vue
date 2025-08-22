@@ -6,7 +6,13 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  byAsset: {
+    type: String,
+    required: false,
+    default: null,
+  },
 });
+
 // Import API
 import Request from '~/services/api';
 // SweetAlert
@@ -36,6 +42,12 @@ async function getHistory() {
 onMounted(() => {
   getHistory();
 });
+
+// Computed with parameter
+const filteredTransactions = computed((type) => {
+  if (!type) return allHistory.value;
+  return (type: string) => allHistory.value.filter(tx => tx.type === type)
+})
 
 defineExpose({ getHistory })
 </script>

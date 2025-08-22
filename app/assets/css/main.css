@@ -112,3 +112,8 @@ body {
   border-radius: 8px;
   background-clip: content-box;   /* Makes the border visible */
 }
+
+.woot-widget-bubble {
+  bottom: 60px!important;
+  right: 10px!important;
+}

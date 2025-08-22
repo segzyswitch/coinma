@@ -24,7 +24,6 @@ async function requestOtp() {
   loadReq.value = true;
   try {
     const response = await Request.requestOTP(props.user?.email);
-    // console.log(response.data);
     if (response.data.status != 'success') {
       $swal.fire({
         title: 'Error!',
@@ -90,12 +89,37 @@ async function withdrawal() {
     });
   }
 }
+
+const allAssets:Ref<Array<any>> = ref([]);
+const loadAsset = ref(true);
+
+async function getAssets() {
+  loadAsset.value = true;
+  try {
+    const response = await Request.allAssets();
+    // console.log(response.data);
+    allAssets.value = response.data.data;
+    loadAsset.value = false;
+  } catch (err:any) {
+    console.log(err);
+    loadAsset.value = false;
+    $swal.fire({
+      title: 'Error!',
+      icon: 'warning',
+      text: err?.response?.data?.message ?? 'Error occurred, try again',
+    });
+  }
+}
+
+onMounted(() => {
+  getAssets();
+});
 </script>
 
 <template>
   <teleport to="body">
     <!-- Send Modal -->
-    <div class="modal fade" id="sendModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendModalLabel" aria-hidden="true">
+    <div class="modal fade" id="swapModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header text-center row">
@@ -107,38 +131,12 @@ async function withdrawal() {
                 <i class="bi bi-arrow-left"></i> <span class="ps-2 d-none d-sm-inline">back</span>
               </button>
             </div>
-            <h5 class="modal-title col-8 col-sm-6 my-auto me-auto" id="sendModalLabel">Send {{ Asset.name }}</h5>
+            <h5 class="modal-title col-8 col-sm-6 my-auto me-auto" id="sendModalLabel">Swap {{ Asset.name }}</h5>
           </div>
           <div class="modal-body py-5 px-4 text-center">
-            <!-- <div class="w-100 howtosend" v-if="!sendType">
-              <h4 class="mb-2">Choose how to send!</h4>
-              <div class="w-100 pt-3">
-                <label class="send-options">
-                  <input v-model="sendType" type="radio" name="send-type" value="crypto" class="check" />
-                  <div class="button w-100 text-mid btn bg-dark-mid p-3 d-flex mb-3 rounded-3">
-                    <div class="rounded-circle aspect-ratio-1x1 my-auto p-2 bg-primary"><i class="bi bi-send px-1"></i></div>
-                    <div class="my-auto ps-3 text-start">
-                      <p class="m-0">Send {{ Asset.unit }}</p>
-                      <small class="text-mute">Send {{ Asset.unit }} to an external {{ Asset.name }} wallet</small>
-                    </div>
-                  </div>
-                </label>
-                <label class="send-options">
-                  <input v-model="sendType" type="radio" name="send-type" value="funds" class="check" />
-                  <div class="button w-100 text-mid btn bg-dark-mid p-3 d-flex mb-3 rounded-3">
-                    <div class="rounded-circle aspect-ratio-1x1 my-auto p-2 bg-teal"><i class="bi bi-bank px-1"></i></div>
-                    <div class="my-auto ps-3 text-start">
-                      <p class="m-0">Send money</p>
-                      <small class="text-mute">Send funds to your bank account</small>
-                    </div>
-                  </div>
-                </label>
-              </div>
-            </div> -->
             <form @submit.prevent="requestOtp" class="w-100 crypto my-forms text-start" v-if="!sendType">
-              <h5 class="mb-4">Send to external wallet</h5>
+              <h5 class="mb-4">Swap {{ Asset.name }}</h5>
               <div class="form-group">
-                <label>Sending from:</label>
                 <div class="w-100 d-flex gap-3 px-3 form-control">
                   <img :src="Asset.icon" width="50" :alt="Asset.name" class="rounded-circle my-auto" />
                   <div class="my-auto">
@@ -151,13 +149,14 @@ async function withdrawal() {
                 </div>
               </div>
               <div class="form-group">
-                <label for="amt">Amount:</label>
-                <input type="text" class="form-control" v-model="formdata.amount" id="amt" placeholder="Enter amount" required />
+                <hr class="col-9 p-0 mx-auto d-block mt-4" />
               </div>
               <div class="form-group">
-                <label for="address">Wallet Address:</label>
-                <input type="text" class="form-control" v-model="formdata.wallet_addr" id="address" placeholder="Enter wallet address" required />
-                <small class="d-block mt-2 text-muted">Make sure the above is a {{ Asset.name }} wallet, sending {{Asset.name}} to other wallets may result in performance loss</small>
+                <label for="address">Swap to:</label>
+                <select class="form-control" v-model="formdata.wallet_addr" id="address" required>
+                  <option value="">Select coin</option>
+                  <option v-for="(a, idx) in allAssets" :value="a.name" :key="idx">{{ a.name }} <small v-if="a.shortname!=a.unit">({{ a.shortname }})</small></option>
+                </select>
               </div>
               <p class="pt-3 mb-0">
                 <button type="submit" :disabled="loadReq" class="btn btn-success bg-teal px-4 py-2">
