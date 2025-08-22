@@ -99,7 +99,8 @@ async function Deposit() {
               <small class="d-block mb-4 text-center">Send only {{ Asset.name }} ({{ Asset.unit }}) to this address, sending other networks or NFTs will result in performance loss</small>
               <div class="form-group py-3">
                 <div class="p-3 bg-dark-mid round-15 col-5 mx-auto">
-                  <img :src="Asset.qr_code" class="w-100" alt="" />
+                  <img v-if="Asset.qr_code" :src="Asset.qr_code" class="w-100" alt="" />
+                  <p v-else class="text-center"><span class="bi bi-qr-code display-1 text-muted"></span></p>
                 </div>
               </div>
               <div class="form-group">
