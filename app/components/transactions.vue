@@ -73,7 +73,7 @@ defineExpose({ getHistory })
             <p class="text-success m-0">{{ Request.formatToCurrency(history.amount) }}</p>
           </div>
         </div>
-        <div class="d-flex w-100 gap-2" v-else-if="history.type=='withdraw'">
+        <div class="d-flex w-100 gap-2" v-else-if="history.type=='withdraw' && history.confirmation>0">
           <span class="trx-icon light-danger text-danger btn rounded-circle"><i class="bi bi-arrow-up h4 m-auto"></i></span>
           <div class="my-auto">
             <p class="mb-1 text-mid text-capitalize">Sent {{ history.asset.name }}</p>

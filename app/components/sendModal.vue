@@ -13,6 +13,7 @@ const props = defineProps<{
 
 const sendType:any = ref(null);
 const otp = ref('');
+const otpResp:any = ref(null);
 const loadReq = ref(false);
 const loadData = ref(false);
 const formdata:any = ref({
@@ -36,7 +37,9 @@ async function requestOtp() {
       return false;
     }
     sendType.value = 'otp';
+    otpResp.value = response.data.message;
     loadReq.value = false;
+    // console.log(response.data);
   } catch (err:any) {
     console.log(err);
     loadReq.value = false;
@@ -46,6 +49,10 @@ async function requestOtp() {
       text: err?.response?.data?.message ?? 'Error occurred, try again',
     });
   }
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function withdrawal() {
@@ -59,6 +66,7 @@ async function withdrawal() {
   };
   // return console.log(FD);
   try {
+    await sleep(2000);
     const response = await Request.Withdraw(FD);
     // console.log(response.data);
     if (response.data.status != 'success') {
@@ -76,13 +84,15 @@ async function withdrawal() {
     $swal.fire({
       title: 'Warning!',
       icon: 'warning',
-      text: `You do not have ${props.Asset?.name}(${props.Asset?.shortname}) to cover your network fees!`,
+      // text: `You do not have ${props.Asset?.name}(${props.Asset?.shortname}) to cover your network fees!`,
+      text: response.data.message,
     });
     loadData.value = false;
+    sendType.value = null;
   } catch (err:any) {
     console.log(err);
     loadData.value = false;
-      sendType.value = null;
+    sendType.value = null;
     $swal.fire({
       title: 'Error!',
       icon: 'warning',
@@ -168,7 +178,7 @@ async function withdrawal() {
             </form>
             <form @submit.prevent="withdrawal" class="w-100 funds my-forms" v-if="sendType==='otp'">
               <div class="form-group">
-                <p class="m-0">Authorize this transaction by entering the OTP sent to {{ maskEmail(user?.email) }}</p>
+                <p class="m-0">{{ otpResp }}</p>
               </div>
               <div class="w-100  py-4">
                 <OtpInput v-model="otp" :length="5" />

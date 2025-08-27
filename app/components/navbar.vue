@@ -69,7 +69,7 @@ onMounted(() => {
             <ul class="dropdown-menu dropdown-menu-end bg-dark-mid" style="min-width:250px;" aria-labelledby="navbarScrollingDropdown">
               <li class="px-2">
                 <div class="bg-dark p-3 mb-2 text-muted rounded-3 small">
-                  <h5 class="m-0">{{ user?.name }} <sup class="bi bi-check-circle text-green"></sup></h5>
+                  <h5 class="m-0">{{ user?.name }} <!--sup class="bi bi-check-circle text-green"></sup--></h5>
                   <small class="small">{{ user?.email }}</small>
                 </div>
               </li>
@@ -99,7 +99,7 @@ onMounted(() => {
         style="margin:0 -1em;border-bottom:1px solid var(--thm-dark-focus);">
         <img src="/img/avt1.jpg" class="rounded-circle my-auto" width="45" height="45" alt="">
         <div class="my-auto ps-2">
-          <h5 class="mb-0">{{ user?.name }} <sup class="bi bi-check-circle text-green"></sup></h5>
+          <h5 class="mb-0">{{ user?.name }} <!--sup class="bi bi-check-circle text-green"></sup--></h5>
           <small class="small">{{ user?.email }}</small>
         </div>
       </div>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-const pageTitle:string = 'View Asset - Cratobyte';
 useHead({
-  title: pageTitle,
+  title: 'View Asset - Cratobyte',
 });
 definePageMeta({
   layout: 'dashboard',
@@ -47,7 +46,8 @@ async function getAsset() {
   try {
     const response = await Request.assetBySlug(route.params.slug);
     // console.log(response.data);
-    Asset.value = response.data.data;    
+    Asset.value = response.data.data;  
+    if (response.data.status == 'success') useHead({ title: `${Asset.value.name} - Cratobyte` });  
     loadReq.value = false;
   } catch (err:any) {
     console.log(err);

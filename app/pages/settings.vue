@@ -57,10 +57,10 @@ function copyWalletId() {
       <div class="my-auto">Country</div>
       <div class="my-auto text-muted">{{ user?.country }}</div>
     </div>
-    <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
+    <!-- <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Account status</div>
       <div class="my-auto text-success">Verified</div>
-    </div>
+    </div> -->
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Account activities</div>
       <div class="my-auto text-muted">view <b>></b></div>
