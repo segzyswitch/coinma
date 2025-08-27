@@ -108,13 +108,13 @@ onMounted(() => {
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Confirmation</div>
-      <div class="my-auto">{{ Reciept.confirmation }} <i class="bi bi-check"></i></div>
+      <div class="my-auto">{{ Reciept.confirmation }} <span v-if="Reciept.confirmation<10"> / 10</span> <i class="bi bi-check"></i></div>
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Status</div>
       <div class="my-auto text-green" v-if="Reciept.status=='completed'">Completed</div>
-      <div class="my-auto text-warning" v-else-if="Reciept.status=='pending'">Pending</div>
-      <div class="my-auto text-danger" v-else>{{ Reciept.status }}</div>
+      <div class="my-auto text-danger" v-else-if="Reciept.status=='failed'">Pending</div>
+      <div class="my-auto text-warning" v-else>{{ Reciept.status }}</div>
     </div>
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Date</div>
