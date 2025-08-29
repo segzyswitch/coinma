@@ -55,7 +55,7 @@ onMounted(() => {
     <div class="w-100" v-else>
       <router-link :to="`/market/${asset.slug}`" class="btn w-100 asset-item p-2 d-flex gap-2 mb-2" v-for="(asset, idx) in allAssets" :key="idx">
         <img :src="asset.icon"
-          width="50" height="50"
+          height="50"
           :alt="asset.shortname"
           class="my-auto rounded-circle"
         />

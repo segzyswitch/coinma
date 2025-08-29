@@ -47,7 +47,7 @@ async function Login() {
     const response = await Request.Login(FD);
     // return console.log(response.data);
     if (response.data.status != 'success') {
-      $swal.fire({
+      $swal?.fire({
         title: 'Error!',
         icon: 'warning',
         text: response?.data?.message ?? 'Error occurred, try again',
@@ -61,7 +61,7 @@ async function Login() {
     const userData = response.data.data;
     // set user data in Pinia store
     userStore.setUser(userData);
-    $swal.fire({
+    $swal?.fire({
       title: 'Success',
       icon: 'success',
       text: response.data.message,
@@ -74,7 +74,7 @@ async function Login() {
   } catch (err:any) {
     console.log(err);
     loadReq.value = false;
-    $swal.fire({
+    $swal?.fire({
       title: 'Error!',
       icon: 'warning',
       text: err?.response?.data?.message ?? 'Error occurred, try again',

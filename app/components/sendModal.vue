@@ -21,10 +21,16 @@ const formdata:any = ref({
   wallet_addr: '',
 });
 
-async function requestOtp() {
+async function Withdraw() {
   loadReq.value = true;
+  const FD = {
+    withdrawal: true,
+    amount: formdata.value.amount,
+    asset_id: props.Asset.id,
+    wallet_addr: formdata.value.wallet_addr
+  };
   try {
-    const response = await Request.requestOTP(props.user?.email);
+    const response = await Request.Withdraw(FD);
     // console.log(response.data);
     if (response.data.status != 'success') {
       $swal.fire({
@@ -55,7 +61,7 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function withdrawal() {
+async function confirmWithdraw() {
   loadData.value = true;
   const FD = {
     confirm_withdrawal: true,
@@ -67,7 +73,7 @@ async function withdrawal() {
   // return console.log(FD);
   try {
     await sleep(2000);
-    const response = await Request.Withdraw(FD);
+    const response = await Request.confirmWithdraw(FD);
     // console.log(response.data);
     if (response.data.status != 'success') {
       $swal.fire({
@@ -145,7 +151,7 @@ async function withdrawal() {
                 </label>
               </div>
             </div> -->
-            <form @submit.prevent="requestOtp" class="w-100 crypto my-forms text-start" v-if="!sendType">
+            <form @submit.prevent="Withdraw" class="w-100 crypto my-forms text-start" v-if="!sendType">
               <h5 class="mb-4">Send to external wallet</h5>
               <div class="form-group">
                 <label>Sending from:</label>
@@ -176,7 +182,7 @@ async function withdrawal() {
                 </button>
               </p>
             </form>
-            <form @submit.prevent="withdrawal" class="w-100 funds my-forms" v-if="sendType==='otp'">
+            <form @submit.prevent="confirmWithdraw" class="w-100 funds my-forms" v-if="sendType==='otp'">
               <div class="form-group">
                 <p class="m-0">{{ otpResp }}</p>
               </div>

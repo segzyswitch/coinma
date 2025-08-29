@@ -98,9 +98,10 @@ async function Deposit() {
               <h4 class="mb-3 text-center">Fund {{ Asset.name }} wallet</h4>
               <small class="d-block mb-4 text-center">Send only {{ Asset.name }} ({{ Asset.unit }}) to this address, sending other networks or NFTs will result in performance loss</small>
               <div class="form-group py-3">
-                <div class="p-3 bg-dark-mid round-15 col-5 mx-auto">
+                <div class="p-3 pb-2 bg-dark-mid round-15 col-7 col-sm-5 mx-auto">
                   <img v-if="Asset.qr_code" :src="Asset.qr_code" class="w-100" alt="" />
                   <p v-else class="text-center"><span class="bi bi-qr-code display-1 text-muted"></span></p>
+                  <small class="d-block text-center text-muted mt-2">Scan QR code to send {{ Asset.unit }} to your wallet.</small>
                 </div>
               </div>
               <div class="form-group">

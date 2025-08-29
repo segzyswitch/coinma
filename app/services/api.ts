@@ -43,6 +43,7 @@ class Request {
     //   }
     // });
   }
+
   // format to money with decimal
   static formatToCurrency(value: number, currency: string = 'USD') {
     if (!value) return '$0.00';
@@ -180,6 +181,15 @@ class Request {
   }
   // Withdraw
   static Withdraw(FD:any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.post(`${apiUrl}/history`, FD, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  // Withdraw
+  static confirmWithdraw(FD:any) {
     const ACCESS_TOKEN = useCookie('auth_token').value;
     return $axios.post(`${apiUrl}/history`, FD, {
       headers: {
