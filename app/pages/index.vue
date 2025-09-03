@@ -114,7 +114,7 @@ async function Login() {
             <input type="checkbox" class="form-check-input" />
             <span>Remember me</span>
           </label>
-          <a href="#" class="btn text-muted ms-auto p-0 small">Forgot Password?</a>
+          <router-link to="/password-recovery" class="btn text-muted ms-auto p-0 small">Forgot Password?</router-link>
         </div>
         <div class="form-group text-center">
           <button class="btn btn-success bg-green w-100" :disabled="loadReq">

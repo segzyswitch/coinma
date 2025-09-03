@@ -39,7 +39,7 @@ async function Withdraw() {
         text: response?.data?.message ?? 'Error occurred, try again',
       });
       console.log(response?.data);
-      loadData.value = false;
+      loadReq.value = false;
       return false;
     }
     sendType.value = 'otp';

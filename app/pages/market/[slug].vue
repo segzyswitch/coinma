@@ -90,14 +90,14 @@ onMounted(() => {
     <div class="w-100" v-else>
       <div class="row">
         <div class="col-3 col-sm-1 mx-auto mb-3 rounded-circle overflow-hidden mb-4 p-0">
-          <img :src="Asset.icon" class="w-100 rounded-circle" alt="BTC" />
+          <img :src="Asset.icon" class="w-100 rounded-circle" :alt="Asset.name" />
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 text-center mx-auto px-0">
-          <h4 class="text-mid mb-1">{{ Asset.name }} <span v-if="Asset.shortname!=Asset.unit">({{ Asset.shortname }})</span></h4>
-          <h2 class="text-light mb-1">{{ Request.formatToCurrency(Asset.volume_price) }}</h2>
-          <p class="text-muted">{{ `${Asset.volume} ${Asset.unit}` }}</p>
+          <h4 class="text-mid mb-2">{{ Asset.name }} <span v-if="Asset.shortname!=Asset.unit">({{ Asset.shortname }})</span></h4>
+          <h3 class="text-light mb-1">{{ `${Asset.volume} ${Asset.unit}` }}</h3>
+          <h4 class="text-mid mb-3">{{ Request.formatToCurrency(Asset.volume_price) }}</h4>
           <div class="w-100 d-flex justify-content-around py-4">
             <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid" style="scale:1;" data-bs-toggle="modal" data-bs-target="#sendModal">
               <i class="bi bi-send d-block h5"></i>
