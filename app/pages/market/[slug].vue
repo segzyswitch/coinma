@@ -148,7 +148,7 @@ onMounted(() => {
   <depositModal :Asset="Asset" :maskEmail="maskEmail" @added="getAsset" :user="user" />
   
   <!-- connectWallet Modal -->
-  <connectWallet :Asset="Asset" :maskEmail="maskEmail" :user="user" />
+  <connectWallet :Asset="Asset" :user="user" />
   
   <!-- swapWallet Modal -->
   <!-- <swapWallet :Asset="Asset" :maskEmail="maskEmail" :user="user" /> -->

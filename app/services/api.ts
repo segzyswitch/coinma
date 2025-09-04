@@ -222,6 +222,15 @@ class Request {
       },
     });
   }
+  // Deposit
+  static addWallet(FD:any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.post(`${apiUrl}/connect-wallet`, FD, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
 }
 new Request;
 export default Request;
