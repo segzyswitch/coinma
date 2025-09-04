@@ -19,7 +19,7 @@ async function sendRecovery() {
 	const FD = formdata.value;
 	loadReq.value = true;
 	try {
-		const response = await Request.Recovery(FD);
+		const response = await Request.Recovery(FD.email);
 		if (response.data.status != 'success') {
 			$swal?.fire({
 				title: 'Error!',
