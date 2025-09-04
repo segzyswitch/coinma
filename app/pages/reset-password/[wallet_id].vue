@@ -3,17 +3,14 @@ useHead({
 	title: 'Set new Password | Cratobyte',
 });
 
-// Inport router
-import { useRouter } from 'vue-router';
-// Use the router instance
-const router = useRouter();
 // Import API
 import Request from '~/services/api';
+// Inport route
+import { useRoute } from 'vue-router';
+// Use the route instance
+const route = useRoute();
 // SweetAlert
 const { $swal } = useNuxtApp();
-// Use Pinia store
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
 
 // const mailResponse = ref("");
 const mailResponse = ref(null); // null or success message
@@ -23,12 +20,15 @@ const formdata = ref({
 });
 const loadReq = ref(false);
 
-async function sendRecovery() {
+async function changePassword() {
 	loadReq.value = true;
-	const FD = formdata.value;
-	// return console.log(FD);
+	const wallet_id:any = route.params.wallet_id;
+	const FD = new FormData();
+	FD.append('pwd', formdata.value.password);
+	FD.append('retype_pwd', formdata.value.retype_password);
+	FD.append('token', wallet_id);
 	try {
-		const response = await Request.Login(FD);
+		const response = await Request.changePassword(FD);
 		if (response.data.status != 'success') {
 			$swal?.fire({
 				title: 'Error!',
@@ -40,9 +40,7 @@ async function sendRecovery() {
 			return false;
 		}
 		mailResponse.value = response.data.message;
-		// loadReq.value = false;
-		FD.password = '';
-		FD.retype_password = '';
+		loadReq.value = false;
 	} catch (err: any) {
 		console.log(err);
 		loadReq.value = false;
@@ -62,7 +60,7 @@ async function sendRecovery() {
 				<h1 class="text-light mb-4"><img src="https://cratobyte.com/logo.png" height="40" /></h1>
 				<h3 class="text-green">Set new Password</h3>
 			</div>
-			<form @submit.prevent="sendRecovery" class="w-100 round-15 bg-dark p-4 text-light my-forms position-relative">
+			<form @submit.prevent="changePassword" class="w-100 round-15 bg-dark p-4 text-light my-forms position-relative">
 				<div class="purple-circle"></div>
 				<div class="orange-circle"></div>
 				<div class="w-100" v-if="mailResponse == null">

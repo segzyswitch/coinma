@@ -58,7 +58,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="p-3 mb-4 pb-4">
+  <section class="p-3 mb-4 pb-5">
     <p class="mb-4">
       <button class="btn p-1 me-0 text-light" @click="router.back" aria-label="Close">
         <i class="bi bi-arrow-left"></i> <span class="ps-2">back</span>

@@ -3,17 +3,10 @@ useHead({
 	title: 'Recover your account | Cratobyte',
 });
 
-// Inport router
-import { useRouter } from 'vue-router';
-// Use the router instance
-const router = useRouter();
 // Import API
 import Request from '~/services/api';
 // SweetAlert
 const { $swal } = useNuxtApp();
-// Use Pinia store
-import { useUserStore } from '~/store/user';
-const userStore = useUserStore();
 
 // const mailResponse = ref("We've sent a link to reset your password. Please check your inbox (or spam folder) for further instructions.");
 const mailResponse = ref(null); // null or success message
@@ -23,11 +16,10 @@ const formdata = ref({
 const loadReq = ref(false);
 
 async function sendRecovery() {
-	loadReq.value = true;
 	const FD = formdata.value;
-	// return console.log(FD);
+	loadReq.value = true;
 	try {
-		const response = await Request.Login(FD);
+		const response = await Request.Recovery(FD);
 		if (response.data.status != 'success') {
 			$swal?.fire({
 				title: 'Error!',

@@ -1,8 +1,8 @@
 import axios from 'axios';
 // SweetAlert
 const { $swal } = useNuxtApp();
-const apiUrl = process.env.API_URL || 'https://cratobyte.com/api';
-// const apiUrl = process.env.API_URL || 'http://localhost/cratobyte/api';
+// const apiUrl = process.env.API_URL || 'https://cratobyte.com/api';
+const apiUrl = process.env.API_URL || 'http://localhost/cratobyte/api';
 // const { $axios } = useNuxtApp();
 const $axios = axios.create({
   // baseURL: config.public.apiUrl.replace(/\/$/, ''), // clean trailing slash
@@ -102,6 +102,22 @@ class Request {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     });
+  }
+  // Recovery
+  static Recovery(email:any) {
+    const ACCESS_TOKEN = useCookie('auth_token').value;
+    return $axios.get(`${apiUrl}/recovery`, {
+      params: {
+        email: email,
+      },
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  }
+  // changePassword
+  static changePassword(FD : any) {
+    return $axios.post(`${apiUrl}/reset-password`, FD);
   }
 
   // Get assets
