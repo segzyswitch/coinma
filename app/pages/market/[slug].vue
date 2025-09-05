@@ -47,7 +47,7 @@ async function getAsset() {
     const response = await Request.assetBySlug(route.params.slug);
     // console.log(response.data);
     Asset.value = response.data.data;  
-    if (response.data.status == 'success') useHead({ title: `${Asset.value.name} - Cratobyte` });  
+    if (response.data.status == 'success') useHead({ title: `${Asset.value.name} ${(Asset.value.unit==Asset.value.shortname) ? '' : '('+Asset.value.shortname+')' } - Cratobyte` });  
     loadReq.value = false;
   } catch (err:any) {
     console.log(err);
@@ -79,10 +79,14 @@ onMounted(() => {
 <template>
   <section class="row mb-3 pb-4">
     <!-- <p class="text-light">{{ Asset }}</p> -->
-    <p class="mb-4">
-      <button class="btn p-1 me-0 text-light" @click="router.back" aria-label="Close">
+    <p class="mb-5 text-center position-relative text-muted">
+      <button class="btn p-1 me-0 text-light position-absolute"
+        style="top:0;left:10px;"
+        @click="router.back"
+        aria-label="Close">
         <i class="bi bi-arrow-left"></i> <span class="ps-2">back</span>
       </button>
+      <span v-if="!loadReq" class="p-1 d-inline-block mt-1">{{ `${Asset.name} ${(Asset.unit==Asset.shortname) ? '' : '('+Asset.shortname+')' }` }}</span>
     </p>
     <p class="text-center py-5 text-mid" v-if="loadReq">
       <i class="spinner-border"></i>
@@ -95,9 +99,11 @@ onMounted(() => {
       </div>
       <div class="row">
         <div class="col-sm-6 text-center mx-auto px-0">
-          <h4 class="text-mid mb-2">{{ Asset.name }} <span v-if="Asset.shortname!=Asset.unit">({{ Asset.shortname }})</span></h4>
-          <h3 class="text-light mb-1">{{ `${Asset.volume} ${Asset.unit}` }}</h3>
-          <h4 class="text-mid mb-3">{{ Request.formatToCurrency(Asset.volume_price) }}</h4>
+          <h4 class="text-mid mb-1">{{ `${Asset.volume} ${Asset.unit}` }}</h4>
+          <!-- <h4 class="text-mid mb-2">{{ Asset.name }} <span v-if="Asset.shortname!=Asset.unit">({{ Asset.shortname }})</span></h4> -->
+          <p class="text-muted">
+            {{ Request.formatToCurrency(Asset.volume_price) }}
+          </p>
           <div class="w-100 d-flex justify-content-around py-4">
             <button class="btn p-2 px-3 round-15 bg-dark-mid text-mid" style="scale:1;" data-bs-toggle="modal" data-bs-target="#sendModal">
               <i class="bi bi-send d-block h5"></i>
