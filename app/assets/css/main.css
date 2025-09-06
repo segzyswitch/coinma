@@ -118,3 +118,28 @@ body {
   bottom: 60px!important;
   right: 10px!important;
 }
+
+
+/* Kill the intrusive top banner + iframe */
+.goog-te-banner-frame,
+.goog-te-gadget-icon,
+.goog-te-gadget img,
+#goog-gt-tt,
+.goog-tooltip,
+.goog-te-balloon-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+body { top: 0 !important; }
+
+/* Hide the default gadget text so only your dropdown shows */
+.goog-te-gadget span,
+.goog-te-gadget .goog-te-combo {
+  font-size: 0 !important;
+}
+
+/* Prevent layout shift from the inline element we mounted */
+#gt-el { display: none !important; }
+
+/* Optional: avoid underline on hover translations */
+.goog-text-highlight { background: inherit !important; box-shadow: none !important; }

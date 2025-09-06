@@ -88,8 +88,8 @@ async function confirmWithdraw() {
     }
     closeModal('sendModal');
     $swal.fire({
-      title: 'Warning!',
-      icon: 'warning',
+      title: 'Success!',
+      icon: 'success',
       // text: `You do not have ${props.Asset?.name}(${props.Asset?.shortname}) to cover your network fees!`,
       text: response.data.message,
     });

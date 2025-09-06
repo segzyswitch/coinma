@@ -37,8 +37,8 @@ async function addWallet() {
     }
     closeModal('connectModal');
     $swal.fire({
-      title: 'Warning!',
-      icon: 'warning',
+      title: 'Success!',
+      icon: 'success',
       text: response.data.message
     });
     loadData.value = false;
@@ -84,7 +84,7 @@ async function addWallet() {
               </div>
               <p class="pt-2 mb-0">
                 <button type="submit" :disabled="loadData" class="btn btn-success bg-teal px-4 py-2">
-                  <i class="spinner-border spinner-border-sm" v-if="loadData"></i>
+                  <i class="spinner-border spinner-border-sm me-2" v-if="loadData"></i>
                   <span>Connect wallet</span>
                 </button>
               </p>

@@ -99,9 +99,9 @@ onMounted(() => {
       </div>
       <div class="row">
         <div class="col-sm-6 text-center mx-auto px-0">
-          <h4 class="text-mid mb-1">{{ `${Asset.volume} ${Asset.unit}` }}</h4>
+          <h4 class="text-light mb-1">{{ `${Asset.volume} ${Asset.unit}` }}</h4>
           <!-- <h4 class="text-mid mb-2">{{ Asset.name }} <span v-if="Asset.shortname!=Asset.unit">({{ Asset.shortname }})</span></h4> -->
-          <p class="text-muted">
+          <p class="text-mid">
             {{ Request.formatToCurrency(Asset.volume_price) }}
           </p>
           <div class="w-100 d-flex justify-content-around py-4">
