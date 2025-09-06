@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div id="gt-el" style="height:0; overflow:hidden;"></div>
     <Navbar />
     <div class="container-fluid">
       <div class="row">
@@ -9,7 +10,6 @@
         </div>
         <main class="col-sm-10" style="padding-top:75px;padding-bottom:75px;">
           <slot />
-          <div id="gt-el" style="height:0; overflow:hidden;"></div>
         </main>
       </div>
     </div>

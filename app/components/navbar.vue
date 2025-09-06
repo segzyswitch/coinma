@@ -42,6 +42,7 @@ onMounted(() => {
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-1 mb-4">
     <div class="container-fluid">
       <router-link to="/dashboard" class="navbar-brand"><img src="https://cratobyte.com/icon.png" height="35" /></router-link>
+      <div class="d-sm-none me-0"><TranslateSelect /></div>
       <button class="btn navbar-toggler d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="bar w-100"></span>
         <span class="bar w-100"></span>
@@ -80,6 +81,9 @@ onMounted(() => {
                 <button class="dropdown-item text-danger w-100" href="#" :disabled="loadReq" @click="Logout"><i v-if="loadReq" class="spinner-border spinner-border-sm"></i> Logout</button>
               </li>
             </ul>
+          </li>          
+          <li class="nav-item dropdown px-2">
+            <TranslateSelect />
           </li>
         </ul>
       </div>

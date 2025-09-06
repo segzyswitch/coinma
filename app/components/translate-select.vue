@@ -1,109 +1,100 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+const { applyLanguage, currentLanguage } = useGoogleTranslate();
 
-type Lang = { code: string; label: string; flag: string }
+const languages = [
+  { code: "en", label: "English", flag: "https://flagcdn.com/w20/gb.png" },
+  { code: "fr", label: "Français", flag: "https://flagcdn.com/w20/fr.png" },
+  { code: "es", label: "Español", flag: "https://flagcdn.com/w20/es.png" },
+  { code: "de", label: "Deutsch", flag: "https://flagcdn.com/w20/de.png" },
+  { code: "it", label: "Italiano", flag: "https://flagcdn.com/w20/it.png" },
+  { code: "pt", label: "Português", flag: "https://flagcdn.com/w20/pt.png" },
+  { code: "ar", label: "العربية", flag: "https://flagcdn.com/w20/sa.png" },
+  { code: "hi", label: "हिन्दी", flag: "https://flagcdn.com/w20/in.png" },
+  { code: "zh-CN", label: "简体中文", flag: "https://flagcdn.com/w20/cn.png" },
+  { code: "ja", label: "日本語", flag: "https://flagcdn.com/w20/jp.png" },
+  { code: "ru", label: "Русский", flag: "https://flagcdn.com/w20/ru.png" },
+];
 
-const langs: Lang[] = [
-  { code: 'en', label: 'English', flag: 'https://flagcdn.com/w20/gb.png' },
-  { code: 'fr', label: 'French', flag: 'https://flagcdn.com/w20/fr.png' },
-  { code: 'es', label: 'Spanish', flag: 'https://flagcdn.com/w20/es.png' },
-  { code: 'de', label: 'German', flag: 'https://flagcdn.com/w20/de.png' },
-  { code: 'pt', label: 'Portuguese', flag: 'https://flagcdn.com/w20/pt.png' },
-  { code: 'ar', label: 'Arabic', flag: 'https://flagcdn.com/w20/sa.png' },
-  { code: 'zh-CN', label: 'Chinese (Simplified)', flag: 'https://flagcdn.com/w20/cn.png' },
-  { code: 'hi', label: 'Hindi', flag: 'https://flagcdn.com/w20/in.png' },
-]
+const open = ref(false);
+const lang = ref("en");
 
-const current = ref<Lang>(langs[0] as Lang) // default EN
-
-// --- Google Translate setup ---
 onMounted(() => {
-  // Load Google Translate script once
-  if (!document.querySelector('#google-translate-script')) {
-    const s = document.createElement('script')
-    s.id = 'google-translate-script'
-    s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
-    document.body.appendChild(s)
-  }
+  lang.value = currentLanguage();
+});
 
-  // Define init globally
-  ;(window as any).googleTranslateElementInit = () => {
-    new (window as any).google.translate.TranslateElement(
-      { pageLanguage: 'en' },
-      'google_translate_element'
-    )
-  }
+const selected:any = computed(
+  () => languages.find((l) => l.code === lang.value) || languages[0]
+);
 
-  // Restore saved language if exists
-  const saved = localStorage.getItem('selectedLang')
-  if (saved) {
-    // slight delay to ensure widget loads
-    setTimeout(() => {
-      doGTranslate(saved)
-    }, 600)
-  }
-})
-
-// --- Translate + persist ---
-function doGTranslate(lang: string) {
-  const select: HTMLSelectElement | null = document.querySelector(
-    'select.goog-te-combo'
-  )
-  if (select) {
-    select.value = lang
-    select.dispatchEvent(new Event('change'))
-    localStorage.setItem('selectedLang', lang)
-  }
-  const found = langs.find(l => l.code === lang)
-  if (found) current.value = found
-}
+const select = (l: any) => {
+  lang.value = l.code;
+  applyLanguage(l.code);
+  open.value = false;
+};
 </script>
 
 <template>
-  <div>
-    <!-- hidden Google Translate widget -->
-    <div id="google_translate_element" class="d-none"></div>
+  <div class="translator">
+    <!-- Selected language button -->
+    <button class="btn translator__button bg-dark-mid text-mid mt-1" @click="open = !open">
+      <img :src="selected.flag" :alt="selected.label" class="translator__flag" />
+      <span>{{ selected.label }}</span>
+      <i class="bi bi-caret-down-fill ms-2" :style="{ transform: open ? 'rotateZ(180deg)' : 'none' }"></i>
+    </button>
 
-    <!-- Bootstrap 5 Dropdown -->
-    <div class="dropdown">
-      <button
-        class="btn btn-light dropdown-toggle d-flex align-items-center gap-2"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
+    <!-- Dropdown -->
+    <ul v-if="open" class="translator__menu bg-dark text-mid">
+      <li
+        v-for="l in languages"
+        :key="l.code"
+        class="translator__item"
+        @click="select(l)"
       >
-        <img
-          :src="current.flag"
-          :alt="current.label"
-          style="width: 20px; height: 14px"
-        />
-        {{ current.label }}
-      </button>
-      <ul class="translate-select dropdown-menu shadow">
-        <li v-for="lang in langs" :key="lang.code">
-          <a
-            href="#"
-            class="dropdown-item d-flex align-items-center gap-2"
-            @click.prevent="doGTranslate(lang.code)"
-          >
-            <img
-              :src="lang.flag"
-              :alt="lang.label"
-              style="width: 20px; height: 14px"
-            />
-            {{ lang.label }}
-          </a>
-        </li>
-      </ul>
-    </div>
+        <img :src="l.flag" :alt="l.label" class="translator__flag" />
+        <span>{{ l.label }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.translate-select {
-	position: fixed!important;
-	top: 10px;
-	right: 10px;
-	left: auto;
+.translator {
+  position: relative;
+  display: inline-block;
+}
+.translator__button {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+.translator__menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  border-radius: .5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  list-style: none;
+  padding: .25rem 0;
+  margin: 0;
+  z-index: 50;
+}
+.translator__item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .4rem .75rem;
+  cursor: pointer;
+}
+/* .translator__item:hover {
+  background: #f3f4f6;
+} */
+.translator__flag {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
 }
 </style>
