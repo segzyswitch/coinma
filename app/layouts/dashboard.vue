@@ -10,6 +10,7 @@
         </div>
         <main class="col-sm-10" style="padding-top:75px;padding-bottom:75px;">
           <slot />
+          <WhatsAppFloat />
         </main>
       </div>
     </div>
