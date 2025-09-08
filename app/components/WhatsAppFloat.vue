@@ -6,7 +6,7 @@
     class="whatsapp-float"
   >
     <img
-      src="https://freelogopng.com/images/all_img/1661938371whatsapp-png-logo.png"
+      src="https://rexzobit.com//whatsapp.png"
       alt="Chat on WhatsApp"
       class="whatsapp-icon"
     />
@@ -23,8 +23,8 @@ const whatsAppLink = `https://wa.me/${phone}?text=${message}`
 <style scoped>
 .whatsapp-float {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 100px;
+  right: 15px;
   z-index: 999;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@ const whatsAppLink = `https://wa.me/${phone}?text=${message}`
 }
 
 .whatsapp-icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 </style>
