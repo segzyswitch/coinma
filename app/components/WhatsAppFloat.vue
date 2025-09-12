@@ -31,7 +31,7 @@ const whatsAppLink = `https://wa.me/${phone}?text=${message}`
   justify-content: center;
   width: 50px;
   height: 50px;
-  background-color: white;
+  background-color: transparent;
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }

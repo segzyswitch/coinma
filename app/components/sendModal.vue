@@ -77,7 +77,7 @@ async function confirmWithdraw() {
     // console.log(response.data);
     if (response.data.status != 'success') {
       $swal.fire({
-        title: 'Error!',
+        title: 'Warning!',
         icon: 'warning',
         text: response?.data?.message ?? 'Error occurred, try again',
       });
@@ -90,7 +90,6 @@ async function confirmWithdraw() {
     $swal.fire({
       title: 'Success!',
       icon: 'success',
-      // text: `You do not have ${props.Asset?.name}(${props.Asset?.shortname}) to cover your network fees!`,
       text: response.data.message,
     });
     loadData.value = false;
