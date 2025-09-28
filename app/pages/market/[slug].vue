@@ -113,7 +113,7 @@ onMounted(() => {
               <i class="bi bi-send d-block h5" style="transform: rotate(180deg);"></i>
               <small class="d-block" style="padding:0 2px;">Recieve</small>
             </button>
-            <a href="https://moonpay.com" target="_blank" class="btn p-2 px-4 round-15 bg-dark-mid text-mid" style="scale:1;">
+            <a href="https://moonpay.com" @click.prevent target="_blank" class="btn p-2 px-4 round-15 bg-dark-mid text-mid" style="scale:1;">
               <i class="bi bi-box-arrow-left d-block h5"></i>
               <small class="d-block">Buy</small>
             </a>

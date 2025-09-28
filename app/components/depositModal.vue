@@ -116,8 +116,13 @@ async function Deposit() {
                 <input type="text" class="form-control" v-model="formdata.amount" id="amt" placeholder="Enter amount" required />
               </div>
               <div class="form-group">
-                <label for="proof">Proof of payment(optional):</label>
-                <input type="file" class="form-control" id="proof" accept="image/*" @change="handleFileChange" placeholder="Enter amount" />
+                <label for="proof">Proof of payment:</label>
+                <input type="file" class="form-control"
+                  id="proof" accept="image/*"
+                  @change="handleFileChange"
+                  placeholder="Enter amount"
+                  required
+                />
                 <small class="d-block mt-1 text-muted">Uploading proof of payment makes transactions process faster</small>
               </div>
               <p class="mb-0">

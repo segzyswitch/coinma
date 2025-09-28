@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-const phone = '+15816198238' // Replace with your full number (no + or spaces)
+const phone = '+13205440991' // Replace with your full number (no + or spaces)
 const message = encodeURIComponent("Hi! I'd like to know more about your services.")
 
 const whatsAppLink = `https://wa.me/${phone}?text=${message}`

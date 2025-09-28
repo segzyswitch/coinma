@@ -51,7 +51,7 @@ async function Login() {
         title: 'Error!',
         icon: 'warning',
         text: response?.data?.message ?? 'Error occurred, try again',
-      });
+      }); 
       loadReq.value = false;
       console.log(response);
       return false;

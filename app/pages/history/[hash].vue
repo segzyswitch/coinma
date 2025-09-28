@@ -116,7 +116,7 @@ onMounted(() => {
     <div class="w-100 p-3 d-flex justify-content-between text-mid border-bottom reciept-item">
       <div class="my-auto">Status</div>
       <div class="my-auto text-green" v-if="Reciept.status=='completed'">Completed</div>
-      <div class="my-auto text-muted" v-else-if="Reciept.status=='failed'">Failed</div>
+      <div class="my-auto text-danger" v-else-if="Reciept.status=='failed'">Failed</div>
       <div class="my-auto text-warning" v-else-if="Reciept.status=='processing'">Processing</div>
       <div class="my-auto text-danger" v-else>{{ Reciept.status }}</div>
     </div>
