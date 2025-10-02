@@ -6,7 +6,7 @@
     class="whatsapp-float"
   >
     <img
-      src="https://rexzobit.com//whatsapp.png"
+      src="https://cratobyte.com/whatsapp.png"
       alt="Chat on WhatsApp"
       class="whatsapp-icon"
     />
